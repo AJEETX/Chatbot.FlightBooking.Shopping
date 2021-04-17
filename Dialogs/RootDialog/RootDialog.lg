@@ -63,6 +63,12 @@
 - I'm sorry,
 - Unfortunately that does not work. 
 
+# SigninCard
+[SigninCard
+    text = Sign-in Card
+    buttons = Sign-in
+]
+
 # AdaptiveCard
 [Activity
     Attachments = ${json(AdaptiveCard.Definition())}

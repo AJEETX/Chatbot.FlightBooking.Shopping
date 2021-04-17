@@ -170,10 +170,7 @@ namespace Evie.Chatbot.Dialogs
                                 {
                                     // This is the global cancel in case a child dialog did not explicit handle cancel.
                                     new SendActivity("Cancelling all dialogs.."),
-                                    // SendActivity supports full language generation resolution.
-                                    // See here to learn more about language generation
-                                    // https://aka.ms/language-generation
-                                    new SendActivity("${WelcomeActions()}"),
+                                    new SendActivity("${SigninCard()}"),
                                     new CancelAllDialogs(),
                                 },
                                 ElseActions = new List<Dialog>()
