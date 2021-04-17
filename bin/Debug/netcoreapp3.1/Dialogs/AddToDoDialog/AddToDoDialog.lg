@@ -5,7 +5,7 @@
 [Common](../Common/Common.lg)
 
 # HelpAddItem
-- ${HelpPrefix()}, you can simply select the below category to add to it. You can pick from one of the list types supported - timber/ color / tiles
+- ${HelpPrefix()}, simply select the below category to add to it. You can pick from one of the products - ${GetproductName()}
 
 # HelpPrefix
 - Sure
@@ -18,15 +18,51 @@
 - ELSE :
     - Ok, Do you know the product name you like to buy? Or you can select the favorites from below.
 
-# TodoItems
-- Item1  |  Item2 | Item3 
+# GetSampleProducts
+[Activity
+    Text = ${AskForItemTitle()}
+    SuggestedActions = Indoor paint | Pinewood | Oakwood | ViewCart | Help | Cancel
+]
+
+# GetproductName 
+- SWITCH: ${dialog.listType}
+    - CASE: ${'timber'}
+        - ${GetTimberProducts()}
+    - CASE: ${'tiles'}
+        - ${GetTilesProducts()}
+    - CASE: ${'paint'}
+        - ${GetPaintProducts()}
+    - DEFAULT:
+        - ${GetSampleProducts()}
+
 
 > Structured template
+
+# GetTimberProducts
+[Activity
+    Text = ${AskForItemTitle()}
+    SuggestedActions = Timber | Hard wood | Pinewood | Oakwood | ViewCart | Help | Cancel
+]
+
+# GetPaintProducts
+[Activity
+    Text = ${AskForItemTitle()}
+    SuggestedActions = Indoor paint | Outdoor paint | acrilic paint | ViewCart | Help | Cancel
+]
+
+# GetTilesProducts
+[Activity
+    Text = ${AskForItemTitle()}
+    SuggestedActions = Bathroom Tile | Kitchen Tile | Outdoor Tile | ViewCart | Help | Cancel
+]
+
 # GetItemTitle
 [Activity
     Text = ${AskForItemTitle()}
-    SuggestedActions = Wood | Title | Color | Cart | Help | Cancel
+    SuggestedActions =  ViewCart | Help | Cancel
 ]
+
+
 
 # GetListType
 [Activity

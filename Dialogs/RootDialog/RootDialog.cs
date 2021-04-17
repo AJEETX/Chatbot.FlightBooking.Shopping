@@ -257,7 +257,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("DeleteItem","(?i)delete"),
                     new IntentPattern("DeleteItem","(?i)erase"),
                     new IntentPattern("DeleteItem","(?i)DeleteItem"),
-                    new IntentPattern("Cart","(?i)view"),
+                    new IntentPattern("ViewCart","(?i)view"),
                     new IntentPattern("GetUserProfile","(?i)profile"),
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)book a flight"),
@@ -277,6 +277,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)buy"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };
