@@ -1,12 +1,6 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using AdaptiveExpressions.Properties;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
@@ -18,15 +12,14 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class GetUserProfileDialog : ComponentDialog
     {
         private readonly IConfiguration configuration;
         private Templates _templates;
 
-        public GetUserProfileDialog(IConfiguration configuration)
-            : base(nameof(GetUserProfileDialog))
+        public GetUserProfileDialog(IConfiguration configuration) : base(nameof(GetUserProfileDialog))
         {
             this.configuration = configuration;
             _templates = Templates.ParseFile(Path.Combine(".", "Dialogs", "GetUserProfileDialog", "GetUserProfileDialog.lg"));

@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,17 +11,15 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Bot.Builder.AI.Luis;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class DeleteToDoDialog : ComponentDialog
     {
-        public DeleteToDoDialog(IConfiguration configuration)
-            : base(nameof(DeleteToDoDialog))
+        public DeleteToDoDialog(IConfiguration configuration) : base(nameof(DeleteToDoDialog))
         {
             string[] paths = { ".", "Dialogs", "DeleteToDoDialog", "DeleteToDoDialog.lg" };
             string fullPath = Path.Combine(paths);

@@ -1,32 +1,23 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using System.IO;
 using Microsoft.Bot.Builder.LanguageGeneration;
-using System.Runtime.InteropServices;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using AdaptiveExpressions.Properties;
-using ToDoBotWithLUIS.Dialogs.BookFlightDialog;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class RootDialog : ComponentDialog
     {
         private static IConfiguration Configuration;
 
-        public RootDialog(IConfiguration configuration)
-            : base(nameof(RootDialog))
+        public RootDialog(IConfiguration configuration) : base(nameof(RootDialog))
         {
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };

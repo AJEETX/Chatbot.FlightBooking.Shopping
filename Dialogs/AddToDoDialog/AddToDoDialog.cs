@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class AddToDoDialog : ComponentDialog
     {

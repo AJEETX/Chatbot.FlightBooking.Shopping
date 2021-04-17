@@ -81,8 +81,6 @@
     SuggestedActions =  ViewCart | Help | Cancel
 ]
 
-
-
 # GetListType
 [Activity
     Text = Please select **category**? or You can select from the choice(s) below

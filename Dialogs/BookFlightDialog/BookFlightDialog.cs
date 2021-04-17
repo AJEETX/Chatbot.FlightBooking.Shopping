@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
@@ -13,17 +10,15 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
-using Microsoft.BotBuilderSamples;
 using Microsoft.Extensions.Configuration;
 
-namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
+namespace Evie.Chatbot.Dialogs
 {
     public class BookFlightDialog : ComponentDialog
     {
         private static IConfiguration Configuration;
 
-        public BookFlightDialog(IConfiguration configuration)
-            : base(nameof(BookFlightDialog))
+        public BookFlightDialog(IConfiguration configuration) : base(nameof(BookFlightDialog))
         {
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "BookFlightDialog", "BookFlightDialog.lg" };
