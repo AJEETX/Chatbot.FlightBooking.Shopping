@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IatZCwC+xkFy5Y3rtksyzlh8GPaM6flgfi3zTpffl5KEuWoiMC448ViPjg5hnO4GU7evBG1Xwng3nCqlQzFMMQ==",
+  "dgSpecHash": "5D5kq4Ea2/1HuQCCIS3FnF2C+UN8a/XbYymv/d1AgcaCp+VyD+HFkqRfUfI5KoAXreJ+NyqHQHR3UbTdAE541A==",
   "success": true,
-  "projectFilePath": "D:\\AJEET\\github.com\\Book-Shop-bot\\Chatbot.Flight.Demo.csproj",
+  "projectFilePath": "D:\\AJEET\\github.com\\evieBot\\Chatbot.FlightBooking.Shopping\\Chatbot.Flight.Demo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Centrecom\\.nuget\\packages\\adaptiveexpressions\\4.12.2\\adaptiveexpressions.4.12.2.nupkg.sha512",
     "C:\\Users\\Centrecom\\.nuget\\packages\\antlr4.runtime.standard\\4.8.0\\antlr4.runtime.standard.4.8.0.nupkg.sha512",

@@ -277,7 +277,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
-                    new IntentPattern("GetWeather","(?i)weather | we\\?ther | w\\?ather  | wea\\?her | weat\\?er | weath\\?r  | weathe\\?")
+                    new IntentPattern("GetWeather","(?i)weather")
                 }
             };
         }

@@ -7626,11 +7626,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AJEET\\github.com\\Book-Shop-bot\\Chatbot.Flight.Demo.csproj",
+      "projectUniqueName": "D:\\AJEET\\github.com\\evieBot\\Chatbot.FlightBooking.Shopping\\Chatbot.Flight.Demo.csproj",
       "projectName": "Chatbot.Flight.Demo",
-      "projectPath": "D:\\AJEET\\github.com\\Book-Shop-bot\\Chatbot.Flight.Demo.csproj",
+      "projectPath": "D:\\AJEET\\github.com\\evieBot\\Chatbot.FlightBooking.Shopping\\Chatbot.Flight.Demo.csproj",
       "packagesPath": "C:\\Users\\Centrecom\\.nuget\\packages\\",
-      "outputPath": "D:\\AJEET\\github.com\\Book-Shop-bot\\obj\\",
+      "outputPath": "D:\\AJEET\\github.com\\evieBot\\Chatbot.FlightBooking.Shopping\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
