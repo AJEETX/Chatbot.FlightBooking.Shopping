@@ -60,3 +60,36 @@
     Text = Thanks for the **booking**, Is there anything I can I be of help today? .
     ${WelcomeActions()}
 ]
+
+# PassengerName
+- **${user.profile.name}**    
+
+# PassengerTravelDate
+- **${conversation.flightBooking.departureDate[0].value}**    
+
+# PassengerTravelDepartureCity
+- **${conversation.flightBooking.departureCity}** 
+
+# PassengerTravelDestinationCity
+- **${conversation.flightBooking.destinationCity}** 
+
+# GetCityFromCode (code)
+- SWITCH: ${code}
+    - CASE: ${'mel'}
+        - MELBOURNE
+    - CASE: ${'syd'}
+        - SYDNEY
+    - CASE: ${'del'}
+        - DELHI
+    - DEFAULT:
+        - LONDON
+
+
+
+# BookingReceiptCard
+[Activity
+    Attachments = ${json(BookingReceiptCard.Definition())}
+]
+
+# BookingReceiptCard.Definition
+- ${json(fromFile('./bookingReceiptCard.json'))}

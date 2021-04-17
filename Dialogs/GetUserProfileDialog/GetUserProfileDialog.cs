@@ -112,7 +112,7 @@ namespace Microsoft.BotBuilderSamples
                             new TextInput()
                             {
                                 Property = "user.profile.age",
-                                Prompt = new ActivityTemplate("${AskUserAage()}"),
+                                Prompt = new ActivityTemplate("${AskUserAge()}"),
                                 Validations = new List<BoolExpression>()
                                 {
                                     // Age must be within 1-150.
@@ -129,21 +129,23 @@ namespace Microsoft.BotBuilderSamples
                                 // Allow interruption if we do not get either an age or a number.
                                 AllowInterruptions = "!@age && !@number"
                             },
-                            new NumberInput()
-                            {
-                                Id = "numberId",
-                                Prompt = new StaticActivityTemplate(MessageFactory.Text("Please enter the mobile number")),
-                                Property = "user.mobile",
-                                Validations = new List<BoolExpression>()
-                                {
-                                    "length(string(this.value)) != 10"
-                                },
-                                MaxTurnCount = 3,
-                                DefaultValue = "1234567890",
-                                DefaultValueResponse = new ActivityTemplate("Hey , I sent the Default value ${%DefaultValue}"),
-                                UnrecognizedPrompt = new ActivityTemplate("Please enter only number"),
-                                InvalidPrompt = new ActivityTemplate("Please enter mobile number with 10 digit")
-                            },
+                            //new NumberInput()
+                            //{
+                            //    Property = "user.profile.mobile",
+                            //    Prompt = new StaticActivityTemplate(MessageFactory.Text("${AskUserMobile}")),
+                            //    Validations = new List<BoolExpression>()
+                            //    {
+                            //        //mobile number should more than 5 digits
+                            //        "length(string(this.value)) < 5"
+                            //    },
+                            //    MaxTurnCount = 3,
+                            //    DefaultValue = "04000000000",
+                            //    DefaultValueResponse = new ActivityTemplate("${DefaultUserMobileResponse()}"),
+                            //    UnrecognizedPrompt = new ActivityTemplate("${AskUserMobile}"),
+                            //    InvalidPrompt = new ActivityTemplate("${AskUserMobile}"),
+                            //    Value="coalesce(@mobile.number, @number)",
+                            //    AllowInterruptions = "!@mobile && !@number"
+                            //},
                             new SendActivity("${ProfileReadBack()}")
                         }
                     },

@@ -17,13 +17,13 @@
     },
     {
       "type": "TextBlock",
-      "text": "2 Stops",
+      "text": "1 Stops",
       "weight": "bolder",
       "spacing": "medium"
     },
     {
       "type": "TextBlock",
-      "text": "Fri, October 10 8:30 AM",
+      "text": "${PassengerTravelDate()}",
       "weight": "bolder",
       "spacing": "none"
     },
@@ -37,14 +37,14 @@
           "items": [
             {
               "type": "TextBlock",
-              "text": "San Francisco",
+              "text": "${PassengerTravelDepartureCity()}",
               "isSubtle": true
             },
             {
               "type": "TextBlock",
               "size": "extraLarge",
               "color": "accent",
-              "text": "SFO",
+              "text": "${PassengerTravelDepartureCity()}",
               "spacing": "none"
             }
           ]
@@ -72,7 +72,7 @@
             {
               "type": "TextBlock",
               "horizontalAlignment": "right",
-              "text": "Amsterdam",
+              "text": "${PassengerTravelDestinationCity()}",
               "isSubtle": true
             },
             {
@@ -80,111 +80,8 @@
               "horizontalAlignment": "right",
               "size": "extraLarge",
               "color": "accent",
-              "text": "AMS",
+              "text": "${PassengerTravelDestinationCity()}",
               "spacing": "none"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "TextBlock",
-      "text": "Non-Stop",
-      "weight": "bolder",
-      "spacing": "medium"
-    },
-    {
-      "type": "TextBlock",
-      "text": "Fri, October 18 9:50 PM",
-      "weight": "bolder",
-      "spacing": "none"
-    },
-    {
-      "type": "ColumnSet",
-      "separator": true,
-      "columns": [
-        {
-          "type": "Column",
-          "width": 1,
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Amsterdam",
-              "isSubtle": true
-            },
-            {
-              "type": "TextBlock",
-              "size": "extraLarge",
-              "color": "accent",
-              "text": "AMS",
-              "spacing": "none"
-            }
-          ]
-        },
-        {
-          "type": "Column",
-          "width": "auto",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": " "
-            },
-            {
-              "type": "Image",
-              "url": "http://adaptivecards.io/content/airplane.png",
-              "size": "small",
-              "spacing": "none"
-            }
-          ]
-        },
-        {
-          "type": "Column",
-          "width": 1,
-          "items": [
-            {
-              "type": "TextBlock",
-              "horizontalAlignment": "right",
-              "text": "San Francisco",
-              "isSubtle": true
-            },
-            {
-              "type": "TextBlock",
-              "horizontalAlignment": "right",
-              "size": "extraLarge",
-              "color": "accent",
-              "text": "SFO",
-              "spacing": "none"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "ColumnSet",
-      "spacing": "medium",
-      "columns": [
-        {
-          "type": "Column",
-          "width": "1",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Total",
-              "size": "medium",
-              "isSubtle": true
-            }
-          ]
-        },
-        {
-          "type": "Column",
-          "width": 1,
-          "items": [
-            {
-              "type": "TextBlock",
-              "horizontalAlignment": "right",
-              "text": "$4,032.54",
-              "size": "medium",
-              "weight": "bolder"
             }
           ]
         }

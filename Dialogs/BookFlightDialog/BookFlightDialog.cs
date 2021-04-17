@@ -43,6 +43,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                             //welcome message to the booking
                             new SendActivity("${BookingWelcome()}"),
                             // Save any entities returned by LUIS.
+                           new BeginDialog(nameof(GetUserProfileDialog)),
                             new SetProperties()
                             {
                                 Assignments = new List<PropertyAssignment>()
@@ -135,6 +136,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                                 {
                                     // TODO: book flight.
                                     new SendActivity("${BookingConfirmation()}"),
+                                    new SendActivity("${BookingReceiptCard()}"),
                                     new SendActivity("${BotOverviewRestart()}")
                                 },
                                 ElseActions = new List<Dialog>()
