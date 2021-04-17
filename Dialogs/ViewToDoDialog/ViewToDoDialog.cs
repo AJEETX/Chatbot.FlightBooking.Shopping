@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
@@ -10,8 +7,6 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
-using System;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using AdaptiveExpressions.Properties;
@@ -30,8 +25,6 @@ namespace Microsoft.BotBuilderSamples
             var ViewToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                // Create and use a LUIS recognizer on the child
-                // Each child adaptive dialog can have its own recognizer.
                 Recognizer = CreateLuisRecognizer(configuration),
                 Triggers = new List<OnCondition>()
                 {

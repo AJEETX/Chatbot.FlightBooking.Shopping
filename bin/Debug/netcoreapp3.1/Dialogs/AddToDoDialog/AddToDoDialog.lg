@@ -5,7 +5,7 @@
 [Common](../Common/Common.lg)
 
 # HelpAddItem
-- ${HelpPrefix()}, you can simply select the below category to add to it. You can pick from one of the list types supported - todo/ grocery/ shopping
+- ${HelpPrefix()}, you can simply select the below category to add to it. You can pick from one of the list types supported - timber/ color / tiles
 
 # HelpPrefix
 - Sure
@@ -39,7 +39,7 @@
 
 # AddItemReadBack
 [Activity
-    Text = ${HelpPrefix()}, I have added "**${dialog.itemTitle}**" to your **${dialog.listType}** list. You have **${count(user.lists[dialog.listType])}** items in your ${dialog.listType} Cart.
+    Text = ${HelpPrefix()}, I have added "**${dialog.itemTitle}**" to your **${dialog.listType}** list. You have **${count(user.lists[dialog.listType])}** product(s) in your Category=  **${dialog.listType}**.
     ${WelcomeActions()}
 ]
 

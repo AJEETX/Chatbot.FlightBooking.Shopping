@@ -64,6 +64,17 @@ namespace Microsoft.BotBuilderSamples
                                     }
                                 }
                             },
+                            // TextInput by default will skip the prompt if the property has value.
+                            new TextInput()
+                            {
+                                Property = "dialog.itemTitle",
+                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
+                                // This entity is coming from the local AddToDoDialog's own LUIS recognizer.
+                                // This dialog's .lu file is under ./AddToDoDialog.lu
+                                Value = "=@itemTitle",
+                                // Allow interruption if we do not have an item title and have a super high confidence classification of an intent.
+                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
+                            },
                             // Get list type
                             new TextInput()
                             {
@@ -82,18 +93,7 @@ namespace Microsoft.BotBuilderSamples
                                 DefaultValue = "timber",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                             },
-                            // TextInput by default will skip the prompt if the property has value.
-                            new TextInput()
-                            {
-                                Property = "dialog.itemTitle",
-                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
-                                // This entity is coming from the local AddToDoDialog's own LUIS recognizer.
-                                // This dialog's .lu file is under ./AddToDoDialog.lu
-                                Value = "=@itemTitle",
-                                // Allow interruption if we do not have an item title and have a super high confidence classification of an intent.
-                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
-                            },
-                            // Add the new todo title to the list of todos. Keep the list of todos in the user scope.
+                            // Add the new product to the timber category. Keep the cart in the user scope.
                             new EditArray()
                             {
                                 ItemsProperty = "user.lists[dialog.listType]",

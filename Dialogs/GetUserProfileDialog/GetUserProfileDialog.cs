@@ -132,11 +132,11 @@ namespace Microsoft.BotBuilderSamples
                             new NumberInput()
                             {
                                 Id = "numberId",
-                                Prompt = new StaticActivityTemplate(MessageFactory.Text("Please enter the mobile number123")),
+                                Prompt = new StaticActivityTemplate(MessageFactory.Text("Please enter the mobile number")),
                                 Property = "user.mobile",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    "length(string(this.value)) == 10"
+                                    "length(string(this.value)) != 10"
                                 },
                                 MaxTurnCount = 3,
                                 DefaultValue = "1234567890",

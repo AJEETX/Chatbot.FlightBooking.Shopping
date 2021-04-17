@@ -63,25 +63,6 @@
 - create to do to {itemTitle}
 - remind me to {itemTitle}
 
-> entity definitions
-@ ml itemTitle
-
-@ list listType = 
-- timber :
-    - to do
-    - todos
-    - laundry            
-- color :
-    - groceries
-    - fruits
-    - vegetables
-    - household items
-    - house hold items
-- tiles : 
-    - shopping 
-    - shop
-    - shoppers
-
 > phrase list definitions
 @ phraseList addItem(interchangeable) = 
 	- add
