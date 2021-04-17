@@ -8,7 +8,7 @@
 - Hi
 - Howdy
 
-# AddItem
+# BuyProduct
 - Add item
 - Add todo
 - add a to do item
@@ -67,17 +67,17 @@
 @ ml itemTitle
 
 @ list listType = 
-- todo :
+- timber :
     - to do
     - todos
     - laundry            
-- grocery :
+- color :
     - groceries
     - fruits
     - vegetables
     - household items
     - house hold items
-- shopping : 
+- tiles : 
     - shopping 
     - shop
     - shoppers
@@ -155,7 +155,7 @@
 	- get
 	- erase
 
-# ViewItem
+# Cart
 - View lists
 - show my todo
 - can you please show my todos?

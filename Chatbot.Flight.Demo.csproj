@@ -3,12 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Dialogs\BookFlightDialog\BookFlightDialog.lg" />
-    <None Remove="Dialogs\BookFlightDialog\BookFlightDialog.lu" />
-  </ItemGroup>
-
   <ItemGroup>
     <Content Include="AdapterWithErrorHandler.lg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -69,5 +63,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
 </Project>

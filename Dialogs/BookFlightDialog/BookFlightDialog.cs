@@ -21,6 +21,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
     public class BookFlightDialog : ComponentDialog
     {
         private static IConfiguration Configuration;
+
         public BookFlightDialog(IConfiguration configuration)
             : base(nameof(BookFlightDialog))
         {
@@ -31,7 +32,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 // Create and use a LUIS recognizer on the child
-                // Each child adaptive dialog can have its own recognizer. 
+                // Each child adaptive dialog can have its own recognizer.
                 Recognizer = CreateLuisRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
@@ -83,11 +84,11 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                                 // https://aka.ms/language-generation
                                 Prompt = new ActivityTemplate("${PromptForMissingInformation()}"),
                                 // We will allow interruptions as long as the user did not explicitly answer the question
-                                // This property supports an expression so you can examine presence of an intent via #intentName, 
+                                // This property supports an expression so you can examine presence of an intent via #intentName,
                                 //    detect presence of an entity via @entityName etc. Interruption is allowed if the expression
                                 //    evaluates to `true`. This property defaults to `true`.
                                 AllowInterruptions = "!@fromCity || !@geographyV2",
-                                // Value is an expression. Take first non null value. 
+                                // Value is an expression. Take first non null value.
                                 Value = "=coalesce(@fromCity.location, @geographyV2.location)"
                             },
                             // delete entity so it is not over consumed as destination as well
@@ -113,7 +114,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                                     // Prebuilt function that returns boolean true if we have a full, valid date.
                                     "isDefinite(this.value[0].timex)"
                                 },
-                                InvalidPrompt = new ActivityTemplate("${Date.Invalid()}"),
+                                InvalidPrompt = new ActivityTemplate("${InvalidDateReprompt()}"),
                                 // Value is an expression. Take any date time entity recognition as deparature date.
                                 Value = "=@datetime.timex[0]"
                             },
@@ -143,7 +144,6 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                                 }
                             }
                         }
-
                     }
                 }
             };
@@ -153,7 +153,6 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
         }
-
 
         private static Recognizer CreateLuisRecognizer()
         {
@@ -165,22 +164,7 @@ namespace ToDoBotWithLUIS.Dialogs.BookFlightDialog
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)travel"),
                     new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Greeting","(?i)hello"),
-                    new IntentPattern("Greeting","(?i)hey"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Help","(?i)help"),
-                    new IntentPattern("Help","(?i)query"),
-                    new IntentPattern("Cancel","(?i)cancel"),
-                    new IntentPattern("Exit","(?i)exit"),
-                    new IntentPattern("Exit","(?i)bye"),
-                    new IntentPattern("Cancel","(?i)no"),
-                    new IntentPattern("Cancel","(?i)nope"),
-                    new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("AddItem","(?i)add"),
-                    new IntentPattern("GetWeather","(?i)weather")
+                    new IntentPattern("BookFlight","(?i)flight")
                 }
             };
         }

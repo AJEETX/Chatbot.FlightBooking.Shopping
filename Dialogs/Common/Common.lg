@@ -7,5 +7,5 @@
 > Structured template
 # WelcomeActions
 [Activity
-    SuggestedActions = BookFlight | Profile | Cancel | Help
+    SuggestedActions = BookFlight | BuyProduct | Profile | Cancel | Help
 ]

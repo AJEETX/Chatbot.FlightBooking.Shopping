@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using AdaptiveExpressions.Properties;
+using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
@@ -66,10 +67,10 @@ namespace Microsoft.BotBuilderSamples
                                     new PropertyAssignment()
                                     {
                                         Property = "user.profile.name",
-                                        
+
                                         // Whenever an adaptive dialog begins, any options passed in to the dialog via 'BeginDialog' are available through dialog.xxx scope.
                                         // Coalesce is a prebuilt function available as part of Adaptive Expressions. Take the first non-null value.
-                                        // @EntityName is a short-hand for turn.recognized.entities.<EntityName>. Other useful short-hands are 
+                                        // @EntityName is a short-hand for turn.recognized.entities.<EntityName>. Other useful short-hands are
                                         //     #IntentName is a short-hand for turn.intents.<IntentName>
                                         //     $PropertyName is a short-hand for dialog.<PropertyName>
                                         Value = "=coalesce(dialog.userName, @userName, @personName)"
@@ -78,6 +79,11 @@ namespace Microsoft.BotBuilderSamples
                                     {
                                         Property = "user.profile.age",
                                         Value = "=coalesce(dialog.userAge, @age)"
+                                    },
+                                    new PropertyAssignment()
+                                    {
+                                        Property = "user.profile.mobile",
+                                        Value = "=coalesce(dialog.mobile, @number)"
                                     }
                                 }
                             },
@@ -94,13 +100,13 @@ namespace Microsoft.BotBuilderSamples
                                     "count(this.value) <= 50"
                                 },
                                 InvalidPrompt = new ActivityTemplate("${AskFirstName.Invalid()}"),
-                                
+
                                 // Because we have a local recognizer, we can use it to extract entities.
                                 // This enables users to say things like 'my name is vishwac' and we only take 'vishwac' as the name.
                                 Value = "=@personName",
-                                
+
                                 // We are going to allow any interruption for a high confidence interruption intent classification .or.
-                                // when we do not get a value for the personName entity. 
+                                // when we do not get a value for the personName entity.
                                 AllowInterruptions = "turn.recognized.score >= 0.9 || !@personName",
                             },
                             new TextInput()
@@ -123,24 +129,28 @@ namespace Microsoft.BotBuilderSamples
                                 // Allow interruption if we do not get either an age or a number.
                                 AllowInterruptions = "!@age && !@number"
                             },
+                            new NumberInput()
+                            {
+                                Id = "numberId",
+                                Prompt = new StaticActivityTemplate(MessageFactory.Text("Please enter the mobile number123")),
+                                Property = "user.mobile",
+                                Validations = new List<BoolExpression>()
+                                {
+                                    "length(string(this.value)) == 10"
+                                },
+                                MaxTurnCount = 3,
+                                DefaultValue = "1234567890",
+                                DefaultValueResponse = new ActivityTemplate("Hey , I sent the Default value ${%DefaultValue}"),
+                                UnrecognizedPrompt = new ActivityTemplate("Please enter only number"),
+                                InvalidPrompt = new ActivityTemplate("Please enter mobile number with 10 digit")
+                            },
                             new SendActivity("${ProfileReadBack()}")
                         }
                     },
                     new OnIntent()
                     {
-                        Intent = "Why",
-                        
-                        // Only do this only on high confidence recognition
-                        Condition = "#Why.Score >= 0.9",
-                        Actions = new List<Dialog>()
-                        {
-                            new SendActivity("${WhyJustificationReadBack()}")
-                        }
-                    },
-                    new OnIntent()
-                    {
                         Intent = "NoValue",
-                        
+
                         // Only do this only on high confidence recognition
                         Condition = "#NoValue.Score >= 0.9",
                         Actions = new List<Dialog>()
@@ -236,7 +246,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)no"),
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("AddItem","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)add"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };

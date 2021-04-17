@@ -31,7 +31,7 @@ namespace Microsoft.BotBuilderSamples
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };
             string fullPath = Path.Combine(paths);
-            // Create instance of adaptive dialog. 
+            // Create instance of adaptive dialog.
             var rootDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 // Add a generator. This is how all Language Generation constructs specified for this dialog are resolved.
@@ -54,13 +54,13 @@ namespace Microsoft.BotBuilderSamples
                             new SendActivity("${HelpRootDialog()}")
                             }
                     },
-                    new OnIntent("AddItem")
-                    { 
-                        // LUIS returns a confidence score with intent classification. 
-                        // Conditions are expressions. 
-                        // This expression ensures that this trigger only fires if the confidence score for the 
+                    new OnIntent("BuyProduct")
+                    {
+                        // LUIS returns a confidence score with intent classification.
+                        // Conditions are expressions.
+                        // This expression ensures that this trigger only fires if the confidence score for the
                         // AddToDoDialog intent classification is at least 0.7
-                        Condition = "#AddItem.Score >= 0.5",
+                        Condition = "#BuyProduct.Score >= 0.5",
                         Actions = new List<Dialog>()
                         {
                             new BeginDialog(nameof(AddToDoDialog))
@@ -132,21 +132,13 @@ namespace Microsoft.BotBuilderSamples
                             new BeginDialog(nameof(BookFlightDialog))
                         }
                     },
-                    new OnIntent("DeleteItem") 
-                    { 
+                    new OnIntent("DeleteItem")
+                    {
                         Condition = "#DeleteItem.Score >= 0.5",
-                        Actions = new List<Dialog>() 
-                        { 
-                            new BeginDialog(nameof(DeleteToDoDialog)) 
-                        } 
-                    },
-                    new OnIntent("ViewItem")   
-                    { 
-                        Condition = "#ViewItem.Score >= 0.5",
-                        Actions = new List<Dialog>() 
-                        { 
-                            new BeginDialog(nameof(ViewToDoDialog)) 
-                        } 
+                        Actions = new List<Dialog>()
+                        {
+                            new BeginDialog(nameof(DeleteToDoDialog))
+                        }
                     },
                     new OnIntent("GetUserProfile")
                     {
@@ -157,18 +149,18 @@ namespace Microsoft.BotBuilderSamples
                         }
                     },
                     // Come back with LG template based readback for global help
-                    new OnIntent("Help")             
-                    { 
+                    new OnIntent("Help")
+                    {
                         Condition = "#Help.Score >= 0.8",
-                        Actions = new List<Dialog>() 
-                        { 
-                            new SendActivity("${HelpRootDialog()}") 
-                        } 
+                        Actions = new List<Dialog>()
+                        {
+                            new SendActivity("${HelpRootDialog()}")
+                        }
                     },
-                    new OnIntent("Cancel")           
-                    { 
+                    new OnIntent("Cancel")
+                    {
                         Condition = "#Cancel.Score >= 0.8",
-                        Actions = new List<Dialog>() 
+                        Actions = new List<Dialog>()
                         {
                             // Ask user for confirmation.
                             // This input will still use the recognizer and specifically the confirm list entity extraction.
@@ -199,7 +191,6 @@ namespace Microsoft.BotBuilderSamples
                                     new SendActivity("${WelcomeActions()}")
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -229,7 +220,7 @@ namespace Microsoft.BotBuilderSamples
                     Actions = new List<Dialog>()
                     {
                         // Note: Some channels send two conversation update events - one for the Bot added to the conversation and another for user.
-                        // Filter cases where the bot itself is the recipient of the message. 
+                        // Filter cases where the bot itself is the recipient of the message.
                         new IfCondition()
                         {
                             Condition = "$foreach.value.name != turn.activity.recipient.name",
@@ -261,12 +252,12 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Greeting","(?i)hi there"),
                     new IntentPattern("Greeting","(?i)hi"),
 
-                    new IntentPattern("AddItem","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)buy"),
                     new IntentPattern("DeleteItem","(?i)remove"),
                     new IntentPattern("DeleteItem","(?i)delete"),
                     new IntentPattern("DeleteItem","(?i)erase"),
                     new IntentPattern("DeleteItem","(?i)DeleteItem"),
-                    new IntentPattern("ViewItem","(?i)view"),
+                    new IntentPattern("Cart","(?i)view"),
                     new IntentPattern("GetUserProfile","(?i)profile"),
                     new IntentPattern("BookFlight","(?i)flight"),
 
@@ -275,10 +266,9 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)cancel"),
                     new IntentPattern("Exit","(?i)exit"),
                     new IntentPattern("Exit","(?i)bye"),
-                    new IntentPattern("Cancel","(?i)no"),
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("AddItem","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)add"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };

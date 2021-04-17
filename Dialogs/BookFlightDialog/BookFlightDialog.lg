@@ -41,6 +41,7 @@
   - ${PromptForTravelDate()}
 - ELSE: 
   - ${ConfirmBooking()}
+
 # ApologyPrefix
 - I'm sorry,
 - Unfortunately that does not work. 
@@ -55,4 +56,7 @@
 - I have you booked to ${conversation.flightBooking.destinationCity} from ${conversation.flightBooking.departureCity} on ${conversation.flightBooking.departureDate[0].value}.
 
 # BotOverviewRestart
-- Thanks for the booking, Is there anything I can I be of help today? 
+[Activity
+    Text = Thanks for the booking, Is there anything I can I be of help today? .
+    ${WelcomeActions()}
+]

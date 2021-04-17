@@ -28,16 +28,16 @@ namespace Microsoft.BotBuilderSamples
         {
             string[] paths = { ".", "Dialogs", "DeleteToDoDialog", "DeleteToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
-            // Create instance of adaptive dialog. 
+            // Create instance of adaptive dialog.
             var DeleteToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 Recognizer = CreateLuisRecognizer(configuration),
                 Triggers = new List<OnCondition>()
                 {
-                    new OnBeginDialog() 
+                    new OnBeginDialog()
                     {
-                        Actions = new List<Dialog>() 
+                        Actions = new List<Dialog>()
                         {
                             // Handle case where there are no items in todo list
                             new IfCondition()
@@ -163,12 +163,13 @@ namespace Microsoft.BotBuilderSamples
             var todoList = dc.State.GetValue<string[]>("user.todos");
             string todoTitleStr = null;
             string[] todoTitle;
-            // By default, recognized intents from a recognizer are available under turn.intents scope. 
-            // Recognized entities are available under turn.entities scope. 
+            // By default, recognized intents from a recognizer are available under turn.intents scope.
+            // Recognized entities are available under turn.entities scope.
             dc.State.TryGetValue("turn.entities.todoTitle", out todoTitle);
             if (todoTitle != null && todoTitle.Length != 0)
             {
-                if (Array.Exists(todoList, e => e == todoTitle[0])) {
+                if (Array.Exists(todoList, e => e == todoTitle[0]))
+                {
                     todoTitleStr = todoTitle[0];
                 }
             }
@@ -203,7 +204,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)no"),
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("AddItem","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)add"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };

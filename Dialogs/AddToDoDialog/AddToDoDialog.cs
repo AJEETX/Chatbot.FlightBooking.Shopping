@@ -29,23 +29,23 @@ namespace Microsoft.BotBuilderSamples
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "AddToDoDialog", "AddToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
-            // Create instance of adaptive dialog. 
+            // Create instance of adaptive dialog.
             var AddToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 // Create and use a LUIS recognizer on the child
-                // Each child adaptive dialog can have its own recognizer. 
+                // Each child adaptive dialog can have its own recognizer.
                 Recognizer = CreateLuisRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
-                    new OnBeginDialog() 
+                    new OnBeginDialog()
                     {
                         Actions = new List<Dialog>()
                         {
                             // Take todo title if we already have it from root dialog's LUIS model.
                             // There is one LUIS application for this bot. So any entity captured by the rootDialog
                             // will be automatically available to child dialog.
-                            // @EntityName is a short-hand for turn.recognized.entities.<EntityName>. Other useful short-hands are 
+                            // @EntityName is a short-hand for turn.recognized.entities.<EntityName>. Other useful short-hands are
                             //     #IntentName is a short-hand for turn.intents.<IntentName>
                             //     $PropertyName is a short-hand for dialog.<PropertyName>
                             new SetProperties()
@@ -64,6 +64,24 @@ namespace Microsoft.BotBuilderSamples
                                     }
                                 }
                             },
+                            // Get list type
+                            new TextInput()
+                            {
+                                Property = "dialog.listType",
+                                Prompt = new ActivityTemplate("${GetListType()}"),
+                                Value = "=@listType",
+                                AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
+                                Validations = new List<BoolExpression>()
+                                {
+                                    // Verify using expressions that the value is one of todo or shopping or grocery
+                                    "contains(createArray('timber', 'color', 'tiles'), toLower(this.value))",
+                                },
+                                OutputFormat = "=toLower(this.value)",
+                                InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
+                                MaxTurnCount = 2,
+                                DefaultValue = "timber",
+                                DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
+                            },
                             // TextInput by default will skip the prompt if the property has value.
                             new TextInput()
                             {
@@ -75,24 +93,6 @@ namespace Microsoft.BotBuilderSamples
                                 // Allow interruption if we do not have an item title and have a super high confidence classification of an intent.
                                 AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
                             },
-                            // Get list type
-                            new TextInput()
-                            {
-                                Property = "dialog.listType",
-                                Prompt = new ActivityTemplate("${GetListType()}"),
-                                Value = "=@listType",
-                                AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
-                                Validations = new List<BoolExpression>()
-                                {
-                                    // Verify using expressions that the value is one of todo or shopping or grocery
-                                    "contains(createArray('todo', 'shopping', 'grocery'), toLower(this.value))",
-                                },
-                                OutputFormat = "=toLower(this.value)",
-                                InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
-                                MaxTurnCount = 2,
-                                DefaultValue = "todo",
-                                DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
-                            },
                             // Add the new todo title to the list of todos. Keep the list of todos in the user scope.
                             new EditArray()
                             {
@@ -101,12 +101,12 @@ namespace Microsoft.BotBuilderSamples
                                 Value = "=dialog.itemTitle"
                             },
                             new SendActivity("${AddItemReadBack()}")
-                            // All child dialogs will automatically end if there are no additional steps to execute. 
-                            // If you wish for a child dialog to not end automatically, you can set 
+                            // All child dialogs will automatically end if there are no additional steps to execute.
+                            // If you wish for a child dialog to not end automatically, you can set
                             // AutoEndDialog property on the Adaptive Dialog to 'false'
                         }
                     },
-                    // Although root dialog can handle this, this will match loacally because this dialog's .lu has local definition for this intent. 
+                    // Although root dialog can handle this, this will match loacally because this dialog's .lu has local definition for this intent.
                     new OnIntent("Help")
                     {
                         Actions = new List<Dialog>()
@@ -140,7 +140,15 @@ namespace Microsoft.BotBuilderSamples
                                 }
                             }
                         }
-                    }
+                    },
+                    new OnIntent("Cart")
+                    {
+                        Condition = "#Cart.Score >= 0.5",
+                        Actions = new List<Dialog>()
+                        {
+                            new BeginDialog(nameof(ViewToDoDialog))
+                        }
+                    },
                 }
             };
 
@@ -157,25 +165,8 @@ namespace Microsoft.BotBuilderSamples
             {
                 Intents = new List<IntentPattern>
                 {
-                    new IntentPattern("BookFlight","(?i)book"),
-                    new IntentPattern("BookFlight","(?i)travel"),
-                    new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Greeting","(?i)hello"),
-                    new IntentPattern("Greeting","(?i)hey"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Help","(?i)help"),
-                    new IntentPattern("Help","(?i)query"),
-                    new IntentPattern("Cancel","(?i)cancel"),
-                    new IntentPattern("Exit","(?i)exit"),
-                    new IntentPattern("Exit","(?i)bye"),
-                    new IntentPattern("Cancel","(?i)no"),
-                    new IntentPattern("Cancel","(?i)nope"),
-                    new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("AddItem","(?i)add"),
-                    new IntentPattern("GetWeather","(?i)weather")
+                    new IntentPattern("Cart","(?i)cart"),
+                    new IntentPattern("Help","(?i)help")
                 }
             };
         }

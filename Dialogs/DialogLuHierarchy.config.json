@@ -2,9 +2,9 @@
   "RootDialog": {
     "rootDialog": true,
     "triggers": {
-      "AddItem": "AddToDoDialog",
+      "BuyProduct": "AddToDoDialog",
       "DeleteItem": "DeleteToDoDialog",
-      "ViewItem": "ViewToDoDialog",
+      "Cart": "ViewToDoDialog",
       "GetUserProfile": "GetUserProfileDialog",
       "BookFlight": "BookFlightDialog"
     }
