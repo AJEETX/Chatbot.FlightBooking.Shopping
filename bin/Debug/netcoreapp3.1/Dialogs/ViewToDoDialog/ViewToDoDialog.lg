@@ -17,11 +17,11 @@
 # ItemsReadback
 - SWITCH: ${dialog.listType}
     - CASE: ${'timber'}
-        - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
+        - ${ItemCountReadBack(user)} ${ListReadBack(user.lists[dialog.listType])}
     - CASE: ${'color'}
-        - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
+        - ${ItemCountReadBack(user)} ${ListReadBack(user.lists[dialog.listType])}
     - CASE: ${'tiles'}
-        - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
+        - ${ItemCountReadBack(user)} ${ListReadBack(user.lists[dialog.listType])}
     - CASE: ${'all'}
         - ${AllListReadBack()}
     - DEFAULT:
@@ -31,15 +31,13 @@
 - ```
 **Timber** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
 ${ListReadBack(user.lists.timber)}
-
 **Color** - ${count(user.lists.color)} ${ItemsOrdinality(user.lists.color)}
 ${ListReadBack(user.lists.color)}
-
 **Tiles** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
 ${ListReadBack(user.lists.tiles)}
 ```
  
-# ItemCountReadBack
+# ItemCountReadBack (user)
 - IF: ${length(user.lists) != 0 }
     - You have ${count(user.lists[dialog.listType])} ${ItemsOrdinality(user.lists[dialog.listType])} in your ${dialog.listType} list.
 

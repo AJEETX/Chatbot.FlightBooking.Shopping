@@ -27,7 +27,7 @@
 
 # GetListType
 [Activity
-    Text = Which cateogory would you buy '${dialog.itemTitle}' from?
+    Text = Select category?
     SuggestedActions = Timber | Color | Tiles | Cart
 ]
 
