@@ -29,24 +29,25 @@
 
 # AllListReadBack
 - ```
-**Timber ** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
+**Timber** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
 ${ListReadBack(user.lists.timber)}
 
-**Color ** - ${count(user.lists.color)} ${ItemsOrdinality(user.lists.color)}
+**Color** - ${count(user.lists.color)} ${ItemsOrdinality(user.lists.color)}
 ${ListReadBack(user.lists.color)}
 
-**Tiles ** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
+**Tiles** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
 ${ListReadBack(user.lists.tiles)}
 ```
  
 # ItemCountReadBack
-- You have ${count(user.lists[dialog.listType])} ${ItemsOrdinality(user.lists[dialog.listType])} in your ${dialog.listType} list.
+- IF: ${length(user.lists) != 0 }
+    - You have ${count(user.lists[dialog.listType])} ${ItemsOrdinality(user.lists[dialog.listType])} in your ${dialog.listType} list.
 
 # ListReadBack (list)
 - IF: ${list != null && count(list) != 0}
     - ${join(foreach(list, item, TodoLine(item)), '')}
 - ELSE: 
-    - You do not have any items in your ${dialog.listType} collection.
+    - You do not have any product added in your ${dialog.listType} collection.
 
 # ItemsOrdinality (list)
 - IF: ${list != null && count(list) == 1}
@@ -56,7 +57,8 @@ ${ListReadBack(user.lists.tiles)}
 
 # TodoLine (item)
 - ```
-- ${item}```
+- ${item}
+- ```
 
 # NoItemsInLists
 [Activity

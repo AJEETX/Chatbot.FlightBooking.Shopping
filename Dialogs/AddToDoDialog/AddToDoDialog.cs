@@ -62,7 +62,7 @@ namespace Microsoft.BotBuilderSamples
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
-                                MaxTurnCount = 3,
+                                MaxTurnCount = 50,
                                 DefaultValue = "timber",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                             },
