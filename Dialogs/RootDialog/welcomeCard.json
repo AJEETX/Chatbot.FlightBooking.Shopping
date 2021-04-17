@@ -13,7 +13,7 @@
       "spacing": "medium",
       "size": "default",
       "weight": "bolder",
-      "text": "Welcome to e-shopping !!!",
+      "text": "Welcome to e-shopping !!! e-friendly shop for building and construction industry",
       "wrap": true,
       "maxLines": 0
     },
@@ -29,7 +29,7 @@
   "actions": [
     {
       "type": "Action.OpenUrl",
-      "title": "e-friendly shop for building and construction industry",
+      "title": "Click for evitat Overview",
       "url": "https://evitat.com"
     }
   ]
