@@ -58,12 +58,12 @@ namespace Microsoft.BotBuilderSamples
                                 AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    "contains(createArray('todo', 'shopping', 'grocery'), toLower(this.value))",
+                                    "contains(createArray('timber', 'tiles', 'paint'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
                                 MaxTurnCount = 50,
-                                DefaultValue = "todo",
+                                DefaultValue = "timber",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                             },
                             new TextInput()

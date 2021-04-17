@@ -231,7 +231,7 @@ namespace Microsoft.BotBuilderSamples
                                 new SetProperty()
                                 {
                                     Property = "user.lists",
-                                    Value = "={todo : [], grocery : [], shopping : []}"
+                                    Value = "={timber : [], paint : [], tiles : []}"
                                 }
                             }
                         }

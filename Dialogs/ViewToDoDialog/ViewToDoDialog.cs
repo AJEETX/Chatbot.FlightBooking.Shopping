@@ -35,7 +35,7 @@ namespace Microsoft.BotBuilderSamples
                             // See if any list has any items.
                             new IfCondition()
                             {
-                                Condition = "count(user.lists.todo) != 0 || count(user.lists.grocery) != 0 || count(user.lists.shopping) != 0",
+                                Condition = "count(user.lists.timber) != 0 || count(user.lists.paint) != 0 || count(user.lists.tiles) != 0",
                                 Actions = new List<Dialog>()
                                 {
                                     // Get list type
@@ -47,13 +47,13 @@ namespace Microsoft.BotBuilderSamples
                                         AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                         Validations = new List<BoolExpression>()
                                         {
-                                            // Verify using expressions that the value is one of todo or shopping or grocery
-                                            "contains(createArray('todo', 'shopping', 'grocery', 'all'), toLower(this.value))",
+                                            // Verify using expressions that the value is one of timber or tiles or paint
+                                            "contains(createArray('timber', 'tiles', 'paint', 'all'), toLower(this.value))",
                                         },
                                         OutputFormat = "=toLower(this.value)",
                                         InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
                                         MaxTurnCount = 2,
-                                        DefaultValue = "todo",
+                                        DefaultValue = "timber",
                                         DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                                     },
                                     new SendActivity("${ShowList()}")

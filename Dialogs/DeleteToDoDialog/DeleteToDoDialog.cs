@@ -39,12 +39,12 @@ namespace Microsoft.BotBuilderSamples
                     {
                         Actions = new List<Dialog>()
                         {
-                            // Handle case where there are no items in todo list
+                            // Handle case where there are no items in timber list
                             new IfCondition()
                             {
                                 // All conditions are expressed using adaptive expressions.
                                 // See https://aka.ms/adaptive-expressions to learn more
-                                Condition = "count(user.lists.todo) == 0 && count(user.lists.grocery) == 0 && count(user.lists.shopping) == 0",
+                                Condition = "count(user.lists.timber) == 0 && count(user.lists.paint) == 0 && count(user.lists.tiles) == 0",
                                 Actions = new List<Dialog>()
                                 {
                                     new SendActivity("${DeleteEmptyList()}"),
@@ -79,13 +79,13 @@ namespace Microsoft.BotBuilderSamples
                                 AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    // Verify using expressions that the value is one of todo or shopping or grocery
+                                    // Verify using expressions that the value is one of timber or tiles or paint
                                     "contains(createArray('timber', 'color', 'tiles'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
                                 MaxTurnCount = 2,
-                                DefaultValue = "todo",
+                                DefaultValue = "timber",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                             },
 
@@ -175,7 +175,7 @@ namespace Microsoft.BotBuilderSamples
             }
             if (todoTitleStr != null)
             {
-                // Set the todo title in turn.todoTitle scope.
+                // Set the timber title in turn.todoTitle scope.
                 dc.State.SetValue("turn.todoTitle", todoTitleStr);
             }
             return await dc.EndDialogAsync(options);

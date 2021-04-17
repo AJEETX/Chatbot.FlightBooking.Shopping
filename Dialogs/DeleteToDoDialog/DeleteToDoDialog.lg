@@ -12,13 +12,13 @@
 # GetListType
 [Activity
     Text = Which list would you like to remove an item from?
-    SuggestedActions = Todo | Grocery | Shopping | Help | Cancel
+    SuggestedActions = Timber | Paint | Tiles | Help | Cancel
 ]
 
 # GetListType.Invalid
 [Activity
     Text = Sorry, '${this.value}' does not work. Which list would you like to remove an item from?
-    SuggestedActions = Todo | Grocery | Shopping | Help | Cancel
+    SuggestedActions = Timber | Paint | Tiles | Help | Cancel
 ]
 
 # DeleteConfirmationReadBack
