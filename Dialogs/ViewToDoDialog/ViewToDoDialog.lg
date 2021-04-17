@@ -16,11 +16,11 @@
 > This way, clients that support multi-line markdown for text can render the items as a list. 
 # ItemsReadback
 - SWITCH: ${dialog.listType}
-    - CASE: ${'todo'}
+    - CASE: ${'timber'}
         - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
-    - CASE: ${'shopping'}
+    - CASE: ${'tiles'}
         - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
-    - CASE: ${'grocery'}
+    - CASE: ${'paint'}
         - ${ItemCountReadBack()} ${ListReadBack(user.lists[dialog.listType])}
     - CASE: ${'all'}
         - ${AllListReadBack()}
@@ -29,14 +29,14 @@
 
 # AllListReadBack
 - ```
-**Todo List** - ${count(user.lists.todo)} ${ItemsOrdinality(user.lists.todo)}
-${ListReadBack(user.lists.todo)}
+**Timber List** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
+${ListReadBack(user.lists.timber)}
 
-**Shopping List** - ${count(user.lists.shopping)} ${ItemsOrdinality(user.lists.shopping)}
-${ListReadBack(user.lists.shopping)}
+**Tiles List** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
+${ListReadBack(user.lists.tiles)}
 
-**Grocery List** - ${count(user.lists.grocery)} ${ItemsOrdinality(user.lists.grocery)}
-${ListReadBack(user.lists.grocery)}
+**Paint List** - ${count(user.lists.paint)} ${ItemsOrdinality(user.lists.paint)}
+${ListReadBack(user.lists.paint)}
 ```
  
 # ItemCountReadBack
@@ -67,11 +67,11 @@ ${ListReadBack(user.lists.grocery)}
 # GetListType
 [Activity
     Text = Which **category** would you like to see?
-    SuggestedActions = Todo | Grocery | Shopping | All
+    SuggestedActions = Timber | Paint | Tiles | All
 ]
 
 # GetListType.Invalid
 [Activity
     Text = Sorry, **'${this.value}'** does not work. Which category would you like to see the product(s)?
-    SuggestedActions = Todo | Grocery | Shopping | All
+    SuggestedActions = Timber | Paint | Tiles | All
 ]

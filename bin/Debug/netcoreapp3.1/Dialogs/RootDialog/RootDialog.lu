@@ -10,24 +10,24 @@
 
 # BuyProduct
 - Add item
-- Add todo
+- Add timber
 - add a to do item
 - Please remind me to {itemTitle=buy milk}
 - Please remember that I need to {itemTitle=buy milk}
 - I need you to remember that {itemTitle=my wife's birthday is Jan 9th}
-- Add a todo named {itemTitle=send report over this weekend}
-- Add {itemTitle=get a new car} to the todo list
+- Add a timber named {itemTitle=send report over this weekend}
+- Add {itemTitle=get a new car} to the timber list
 - Add {itemTitle=write a spec} to the list
-- Add {itemTitle=finish this demo} to my todo list
-- add a todo item {itemTitle=vacuuming by october 3rd}
-- add {itemTitle=call my mother} to my todo list
+- Add {itemTitle=finish this demo} to my timber list
+- add a timber item {itemTitle=vacuuming by october 3rd}
+- add {itemTitle=call my mother} to my timber list
 - add {itemTitle=due date august to peanut butter jelly bread milk} on todos list
 - add {itemTitle=go running} to my todos
 - add to my todos list {itemTitle=mail the insurance forms out by saturday}
 - can i add {itemTitle=shirts} on the todos list
 - could i add {itemTitle=medicine} to the todos list
 - would you add {itemTitle=heavy cream} to the todos list
-- add {itemTitle} to my todo list
+- add {itemTitle} to my timber list
 - add a to do that {itemTitle=purchase a nice sweater}
 - add a to do to {itemTitle=buy shoes}
 - add an task of {itemTitle=chores to do around the house}
@@ -47,10 +47,10 @@
 > Add patterns
 - Please remember [to] {itemTitle}
 - I need you to remember [that] {itemTitle}
-- Add a todo named {itemTitle}
+- Add a timber named {itemTitle}
 - Add {itemTitle} to the list
-- [Please] add {itemTitle} to the todo list
-- Add {itemTitle} to my todo
+- [Please] add {itemTitle} to the timber list
+- Add {itemTitle} to my timber
 - add {itemTitle} to my to do list
 - add {itemTitle} to my to dos
 - add a to do that buy {itemTitle}
@@ -71,48 +71,48 @@
 
 # DeleteItem
 - Delete item
-- Remove todo
+- Remove timber
 - Mark {itemTitle = buy milk} as complete
 - Flag {itemTitle = first one} as done
-- Remove {itemTitle = finish this demo} from the todo list
+- Remove {itemTitle = finish this demo} from the timber list
 - remove another one
 - remove
-- clear my todo named {itemTitle = get a new car}
-- I'm done with the first todo
-- I finished the las todo
-- Remove the first todo
-- Delete todo
+- clear my timber named {itemTitle = get a new car}
+- I'm done with the first timber
+- I finished the las timber
+- Remove the first timber
+- Delete timber
 - Clear my todos
 - Delete all my todos
-- Remove all my todo
+- Remove all my timber
 - Forget the list
-- Purge the todo list
+- Purge the timber list
 - can you delete {itemTitle=todo1}
 - can you delete {itemTitle=xxx} item
 - delete {itemTitle=eggs} from list
-- delete off {itemTitle=pancake mix} on the shopping list
-- delete {itemTitle=shampoo} from shopping list
+- delete off {itemTitle=pancake mix} on the tiles list
+- delete {itemTitle=shampoo} from tiles list
 - delete {itemTitle=shirts} from list
 - delete task {itemTitle=go fishing}
 - delete task {itemTitle=go to cinema tonight}
-- delete the item {itemTitle=buy socks} from my todo list
-- delete the second task in my shopping list
+- delete the item {itemTitle=buy socks} from my timber list
+- delete the second task in my tiles list
 - delete the task {itemTitle=house cleanup this weekend}
 - delete the task that {itemTitle=hit the gym every morning}
 - delete the to do {itemTitle=meet my friends tomorrow}
 - delete the to do that {itemTitle=daily practice piano}
 - delete the to do that {itemTitle=meet john when he come here the next friday}
 - delete to do {itemTitle=buy milk}
-- delete to do {itemTitle=go shopping}
+- delete to do {itemTitle=go tiles}
 - delete to do that {itemTitle=go hiking tomorrow}
-- erase {itemTitle=bananas} from shopping list
-- erase {itemTitle=peanuts} on the shopping list
-- remove {itemTitle=asprin} from shopping list
-- remove {itemTitle=black shoes} from shopping list
-- remove {itemTitle=class} from todo list
-- remove {itemTitle=salad vegetables} from grocery list
+- erase {itemTitle=bananas} from tiles list
+- erase {itemTitle=peanuts} on the tiles list
+- remove {itemTitle=asprin} from tiles list
+- remove {itemTitle=black shoes} from tiles list
+- remove {itemTitle=class} from timber list
+- remove {itemTitle=salad vegetables} from paint list
 - remove task {itemTitle=buy dog food}
-- remove task {itemTitle=go shopping}
+- remove task {itemTitle=go tiles}
 - remove task that {itemTitle=go hiking this weekend}
 - remove task that {itemTitle=lawn mowing}
 - remove the item {itemTitle=paris} from my list
@@ -126,7 +126,7 @@
 - I completed {itemTitle}
 - Delete {itemTitle}
 - Mark {itemTitle} as complete
-- Remove {itemTitle} from my [todo] list
+- Remove {itemTitle} from my [timber] list
 - [Please] delete {itemTitle} from the list
 
 > phrase list definitions
@@ -138,22 +138,22 @@
 
 # Cart
 - View lists
-- show my todo
+- show my timber
 - can you please show my todos?
-- please show my todo list
-- todo list please
-- I need to see my todo list
+- please show my timber list
+- timber list please
+- I need to see my timber list
 - can you show me the list?
 - please show the list
-- what do i have on my todo?
+- what do i have on my timber?
 - what is on my list?
-- do i have anything left on my todo list?
-- I hope I do not have any todo left
+- do i have anything left on my timber list?
+- I hope I do not have any timber left
 - do i have any tasks left?
 - hit me up with more items
 - view my todos
-- can you show my todo
-- see todo
+- can you show my timber
+- see timber
 - I would like to see my todos list
 - show all my lists
 - show my lists

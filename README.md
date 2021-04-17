@@ -1,4 +1,4 @@
-﻿# Todo bot with LUIS
+﻿# Timber bot with LUIS
 
 This sample demonstrates using [Adaptive dialog][1],  [Language Generation][2] features with [LUIS][5] to demonstrate an end-to-end ToDo bot in action including support for interruptions.
 
@@ -21,7 +21,7 @@ This sample demonstrates using [Adaptive dialog][1],  [Language Generation][2] f
     ```
 - Run the bot from a terminal or from Visual Studio:
 
-  A) From a terminal, navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.todo-bot`
+  A) From a terminal, navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.timber-bot`
 
   ```bash
   # run the bot
@@ -32,7 +32,7 @@ This sample demonstrates using [Adaptive dialog][1],  [Language Generation][2] f
 
   - Launch Visual Studio
   - File -> Open -> Project/Solution
-  - Navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.todo-bot` folder
+  - Navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.timber-bot` folder
   - Select `ToDoBotWithLUIS.csproj` file
   - Press `F5` to run the project
 
@@ -56,7 +56,7 @@ This sample demonstrates using [Adaptive dialog][1],  [Language Generation][2] f
 ```bash
 > npm i -g @microsoft/botframework-cli
 ```
-- In a command prompt, navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.todo-bot`
+- In a command prompt, navigate to `samples/csharp_dotnetcore/adaptive-dialog/06.timber-bot`
 - In order for interruption to work effectively, you need to generate LU models that are cross-trained.
   - Cross training requires a definition of your dialog hierarchy. See Dialogs/DialogLuHierarchy.config.json as an example.
 ```bash

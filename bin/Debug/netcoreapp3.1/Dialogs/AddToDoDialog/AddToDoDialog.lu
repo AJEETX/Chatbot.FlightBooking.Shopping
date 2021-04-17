@@ -5,12 +5,12 @@
 - Please remind me to {itemTitle=buy milk}
 - Please remember that I need to {itemTitle=buy milk}
 - I need you to remember that {itemTitle=my wife's birthday is Jan 9th}
-- Add a todo named {itemTitle=send report over this weekend}
-- Add {itemTitle=get a new car} to the todo list
+- Add a timber named {itemTitle=send report over this weekend}
+- Add {itemTitle=get a new car} to the timber list
 - Add {itemTitle=write a spec} to the list
-- Add {itemTitle=finish this demo} to my todo list
-- add a todo item {itemTitle=vacuuming by october 3rd}
-- add {itemTitle=call my mother} to my todo list
+- Add {itemTitle=finish this demo} to my timber list
+- add a timber item {itemTitle=vacuuming by october 3rd}
+- add {itemTitle=call my mother} to my timber list
 - add {itemTitle=due date august to peanut butter jelly bread milk} on todos list
 - add {itemTitle=go running} to my todos
 - add to my todos list {itemTitle=mail the insurance forms out by saturday}
@@ -32,10 +32,10 @@
 > Add patterns
 - Please remember [to] {itemTitle}
 - I need you to remember [that] {itemTitle}
-- Add a todo named {itemTitle}
+- Add a timber named {itemTitle}
 - Add {itemTitle} to the list
-- [Please] add {itemTitle} to the todo list
-- Add {itemTitle} to my todo
+- [Please] add {itemTitle} to the timber list
+- Add {itemTitle} to my timber
 - add {itemTitle} to my to do list
 - add {itemTitle} to my to dos
 - add a to do that buy {itemTitle}
@@ -47,28 +47,28 @@
 - create a to do to {itemTitle}
 - create to do to {itemTitle}
 - remind me to {itemTitle}
-- add {itemTitle} to my todo list
+- add {itemTitle} to my timber list
 
 @ ml itemTitle
 
 # GetListType
-- todo list
-- shopping list
+- timber list
+- tiles list
 - how about the to do list?
 
 @ list listType = 
-- todo :
+- timber :
 	- to do
     - todos
     - laundry            
-- grocery :
+- paint :
     - groceries
     - fruits
     - vegetables
     - household items
     - house hold items
-- shopping : 
-    - shopping 
+- tiles : 
+    - tiles 
     - shop
     - shoppers
 

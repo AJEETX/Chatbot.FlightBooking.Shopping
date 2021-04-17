@@ -2,26 +2,26 @@
 > See https://aka.ms/lu-file-format to learn more
 
 # GetListType
-- todo list
-- shopping list
+- timber list
+- tiles list
 - how about the to do list?
 
 @ list listType = 
 - all : 
 	- everything
 	- all items
-- todo :
+- timber :
 	- to do
     - todos
     - laundry            
-- grocery :
+- paint :
     - groceries
     - fruits
     - vegetables
     - household items
     - house hold items
-- shopping : 
-    - shopping 
+- tiles : 
+    - tiles 
     - shop
     - shoppers
 

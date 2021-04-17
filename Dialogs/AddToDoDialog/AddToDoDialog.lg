@@ -31,13 +31,13 @@
 # GetListType
 [Activity
     Text = Please select **category**? or You can select from the choice(s) below
-    SuggestedActions = Todo | Grocery | Shopping 
+    SuggestedActions = Timber | Paint | Tiles 
 ]
 
 # GetListType.Invalid
 [Activity
     Text = Sorry, '${this.value}' does not work. Which category would you add ${dialog.itemTitle} to?
-    SuggestedActions = Todo | Grocery | Shopping
+    SuggestedActions = Timber | Paint | Tiles
 ]
 
 # AddItemReadBack
