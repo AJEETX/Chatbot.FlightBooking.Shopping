@@ -52,9 +52,9 @@
 @ ml itemTitle
 
 # GetListType
-- todo list
-- shopping list
-- how about the to do list?
+- timber list
+- color list
+- how about the tiles list?
 
 @ list listType = 
 - timber :

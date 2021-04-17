@@ -80,7 +80,7 @@ namespace Microsoft.BotBuilderSamples
                                 Validations = new List<BoolExpression>()
                                 {
                                     // Verify using expressions that the value is one of todo or shopping or grocery
-                                    "contains(createArray('todo', 'shopping', 'grocery'), toLower(this.value))",
+                                    "contains(createArray('timber', 'color', 'tiles'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
@@ -135,13 +135,13 @@ namespace Microsoft.BotBuilderSamples
                                 {
                                     new PropertyAssignment()
                                     {
-                                        Property = "dialog.itemTitle",
-                                        Value = "=@itemTitle"
+                                        Property = "dialog.listType",
+                                        Value = "=@listType"
                                     },
                                     new PropertyAssignment()
                                     {
-                                        Property = "dialog.listType",
-                                        Value = "=@listType"
+                                        Property = "dialog.itemTitle",
+                                        Value = "=@itemTitle"
                                     }
                                 }
                             }

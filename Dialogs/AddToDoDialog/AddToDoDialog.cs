@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
@@ -11,9 +8,7 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.LanguageGeneration;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Extensions.Configuration;
-using System;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 
@@ -23,18 +18,14 @@ namespace Microsoft.BotBuilderSamples
     {
         private static IConfiguration Configuration;
 
-        public AddToDoDialog(IConfiguration configuration)
-            : base(nameof(AddToDoDialog))
+        public AddToDoDialog(IConfiguration configuration) : base(nameof(AddToDoDialog))
         {
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "AddToDoDialog", "AddToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
-            // Create instance of adaptive dialog.
             var AddToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                // Create and use a LUIS recognizer on the child
-                // Each child adaptive dialog can have its own recognizer.
                 Recognizer = CreateLuisRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
@@ -42,40 +33,23 @@ namespace Microsoft.BotBuilderSamples
                     {
                         Actions = new List<Dialog>()
                         {
-                            // Take todo title if we already have it from root dialog's LUIS model.
-                            // There is one LUIS application for this bot. So any entity captured by the rootDialog
-                            // will be automatically available to child dialog.
-                            // @EntityName is a short-hand for turn.recognized.entities.<EntityName>. Other useful short-hands are
-                            //     #IntentName is a short-hand for turn.intents.<IntentName>
-                            //     $PropertyName is a short-hand for dialog.<PropertyName>
                             new SetProperties()
                             {
                                 Assignments = new List<PropertyAssignment>()
                                 {
                                     new PropertyAssignment()
                                     {
-                                        Property = "dialog.itemTitle",
-                                        Value = "=@itemTitle"
+                                        Property = "dialog.listType",
+                                        Value = "=@listType"
                                     },
                                     new PropertyAssignment()
                                     {
-                                        Property = "dialog.listType",
-                                        Value = "=@listType"
+                                        Property = "dialog.itemTitle",
+                                        Value = "=@itemTitle"
                                     }
                                 }
                             },
-                            // TextInput by default will skip the prompt if the property has value.
-                            new TextInput()
-                            {
-                                Property = "dialog.itemTitle",
-                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
-                                // This entity is coming from the local AddToDoDialog's own LUIS recognizer.
-                                // This dialog's .lu file is under ./AddToDoDialog.lu
-                                Value = "=@itemTitle",
-                                // Allow interruption if we do not have an item title and have a super high confidence classification of an intent.
-                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
-                            },
-                            // Get list type
+                             // Get list type
                             new TextInput()
                             {
                                 Property = "dialog.listType",
@@ -84,14 +58,20 @@ namespace Microsoft.BotBuilderSamples
                                 AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    // Verify using expressions that the value is one of todo or shopping or grocery
                                     "contains(createArray('timber', 'color', 'tiles'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
-                                MaxTurnCount = 2,
+                                MaxTurnCount = 3,
                                 DefaultValue = "timber",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
+                            },
+                            new TextInput()
+                            {
+                                Property = "dialog.itemTitle",
+                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
+                                Value = "=@itemTitle",
+                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
                             },
                             // Add the new product to the timber category. Keep the cart in the user scope.
                             new EditArray()
@@ -106,7 +86,7 @@ namespace Microsoft.BotBuilderSamples
                             // AutoEndDialog property on the Adaptive Dialog to 'false'
                         }
                     },
-                    // Although root dialog can handle this, this will match loacally because this dialog's .lu has local definition for this intent.
+                    // Although root dialog can handle this, this will match locally because this dialog's .lu has local definition for this intent.
                     new OnIntent("Help")
                     {
                         Actions = new List<Dialog>()
