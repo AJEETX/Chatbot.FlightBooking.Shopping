@@ -1,0 +1,58 @@
+﻿> Language Generation definition file. 
+> See https://aka.ms/language-generation to learn more
+
+> Pull other lg content via import reference.
+[Common](../Common/Common.lg)
+
+# PromptForDestinationCity
+- Where would you like to travel to?
+- What is your destination city?
+
+# PromptForDepartureCity
+- Where are you traveling from?
+- What is your departure city?
+
+# ConfirmPrefix
+- Please confirm,
+- Can you please confirm this is right?
+- Does this sound right to you? 
+
+# ConfirmMessage
+- I have you traveling to: ${conversation.flightBooking.destinationCity} from: ${conversation.flightBooking.departureCity} on: ${conversation.flightBooking.departureDate[0].value}
+- on ${conversation.flightBooking.departureDate[0].value}, travelling from ${conversation.flightBooking.departureCity} to ${conversation.flightBooking.destinationCity}
+
+# ConfirmBooking
+- ${ConfirmPrefix()} ${ConfirmMessage()}
+
+# PromptForTravelDate
+- When would you like to travel? (dd/mm/yyy) (dd/MMM/yyy)
+- What is your departure date? (dd/mm/yyy) (dd/MMM/yyy)
+- Can you please give me your intended date of departure? (dd/mm/yyy) (dd/MMM/yyy)
+
+> This template uses inline expressions. Expressions are defined using adaptive expressions. 
+> See https://aka.ms/adaptive-expressions to learn more.
+
+# PromptForMissingInformation
+- IF: ${conversation.flightBooking.departureCity == null} 
+  - ${PromptForDepartureCity()}
+- ELSEIF: ${conversation.flightBooking.destinationCity == null}
+  - ${PromptForDestinationCity()}
+- ELSEIF: ${conversation.flightBooking.departureDate == null}
+  - ${PromptForTravelDate()}
+- ELSE: 
+  - ${ConfirmBooking()}
+# ApologyPrefix
+- I'm sorry,
+- Unfortunately that does not work. 
+
+# InvalidDateReprompt
+- ${ApologyPrefix()} to make your booking please enter a full travel date including Day Month and Year.
+
+# BookingWelcome
+- Wow, great to know that you want to travel.
+
+# BookingConfirmation
+- I have you booked to ${conversation.flightBooking.destinationCity} from ${conversation.flightBooking.departureCity} on ${conversation.flightBooking.departureDate[0].value}.
+
+# BotOverviewRestart
+- Thanks for the booking, Is there anything I can I be of help today? 

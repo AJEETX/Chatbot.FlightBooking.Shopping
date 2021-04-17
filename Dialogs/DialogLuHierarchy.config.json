@@ -1,0 +1,12 @@
+﻿{
+  "RootDialog": {
+    "rootDialog": true,
+    "triggers": {
+      "AddItem": "AddToDoDialog",
+      "DeleteItem": "DeleteToDoDialog",
+      "ViewItem": "ViewToDoDialog",
+      "GetUserProfile": "GetUserProfileDialog",
+      "BookFlight": "BookFlightDialog"
+    }
+  }
+}
