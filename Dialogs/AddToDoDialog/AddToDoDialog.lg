@@ -5,7 +5,7 @@
 [Common](../Common/Common.lg)
 
 # HelpAddItem
-- ${HelpPrefix()}, simply select the below category to add to it. You can pick from one of the products - ${GetproductName()}
+- ${HelpPrefix()}, simply select the below category to add to it. You can pick from one of the products - ${Getproducts()}
 
 # HelpPrefix
 - Sure
@@ -35,6 +35,25 @@
     - DEFAULT:
         - ${GetSampleProducts()}
 
+# Getproducts 
+- SWITCH: ${dialog.listType}
+    - CASE: ${'timber'}
+        - ${TimberProducts()}
+    - CASE: ${'tiles'}
+        - ${TilesProducts()}
+    - CASE: ${'paint'}
+        - ${PaintProducts()}
+    - DEFAULT:
+        - ${GetSampleProducts()}
+
+# TimberProducts
+-  Timber | Hard wood | Pinewood | Oakwood
+
+# PaintProducts
+-  Indoor paint | Outdoor paint | acrilic paint
+
+# TilesProducts
+-  Bathroom Tile | Kitchen Tile | Outdoor Tile
 
 > Structured template
 

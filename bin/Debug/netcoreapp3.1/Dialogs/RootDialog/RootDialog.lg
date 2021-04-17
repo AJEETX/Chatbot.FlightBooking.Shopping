@@ -62,3 +62,11 @@
 # ApologyPrefix
 - I'm sorry,
 - Unfortunately that does not work. 
+
+# AdaptiveCard
+[Activity
+    Attachments = ${json(AdaptiveCard.Definition())}
+]
+
+# AdaptiveCard.Definition
+- ${json(fromFile('./welcomeCard.json'))}

@@ -148,3 +148,6 @@ D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\obj\Debug\netcoreapp3
 D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\obj\Debug\netcoreapp3.1\Chatbot.Flight.Demo.dll
 D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\obj\Debug\netcoreapp3.1\Chatbot.Flight.Demo.pdb
 D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\obj\Debug\netcoreapp3.1\Chatbot.Flight.Demo.genruntimeconfig.cache
+D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\bin\Debug\netcoreapp3.1\Cards\welcomeCard.json
+D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\bin\Debug\netcoreapp3.1\Dialogs\BookFlightDialog\bookingReceiptCard.json
+D:\AJEET\github.com\evieBot\Chatbot.FlightBooking.Shopping\bin\Debug\netcoreapp3.1\Dialogs\RootDialog\welcomeCard.json

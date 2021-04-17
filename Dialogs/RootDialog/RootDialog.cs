@@ -226,6 +226,7 @@ namespace Microsoft.BotBuilderSamples
                             Condition = "$foreach.value.name != turn.activity.recipient.name",
                             Actions = new List<Dialog>()
                             {
+                                new SendActivity("${AdaptiveCard()}"),
                                 new SendActivity("${IntroMessage()}"),
                                 // Initialize global properties for the user.
                                 new SetProperty()
