@@ -16,25 +16,28 @@
 - IF : ${dialog.listType != null}
     - Ok, what would you like to buy from the category **${dialog.listType}**?
 - ELSE :
-    - Ok, Do you know the product name you like to buy?
+    - Ok, Do you know the product name you like to buy? Or you can select the favorites from below.
+
+# TodoItems
+- Item1  |  Item2 | Item3 
 
 > Structured template
 # GetItemTitle
 [Activity
     Text = ${AskForItemTitle()}
-    SuggestedActions = Help | Cancel
+    SuggestedActions = Wood | Title | Color | Cart | Help | Cancel
 ]
 
 # GetListType
 [Activity
-    Text = Select category?
-    SuggestedActions = Timber | Color | Tiles | Cart
+    Text = Which category would you add '${dialog.itemTitle}' to?
+    SuggestedActions = Todo | Grocery | Shopping | Cart | Help | Cancel
 ]
 
 # GetListType.Invalid
 [Activity
-    Text = Sorry, '${this.value}' does not work. Which list would you buy ${dialog.itemTitle} to?
-    SuggestedActions = Timber | Color | Tiles
+    Text = Sorry, '${this.value}' does not work. Which category would you add ${dialog.itemTitle} to?
+    SuggestedActions = Todo | Grocery | Shopping | Cart | Help | Cancel
 ]
 
 # AddItemReadBack

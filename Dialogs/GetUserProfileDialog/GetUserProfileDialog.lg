@@ -4,7 +4,7 @@
 # AskFirstName
 [Activity
     Text = What is your first name?
-    SuggestedActions = Cancel
+    SuggestedActions = Help | Cancel
 ]
 
 # AskFirstName.Invalid()
@@ -13,7 +13,7 @@
 # AskUserAage
 [Activity
     Text = ${AckPhrase()} ${user.profile.name}, ${GetAge()}
-    SuggestedActions = Cancel
+    SuggestedActions =  Help | Cancel
 ]
 
 # AskUserAge.Invalid

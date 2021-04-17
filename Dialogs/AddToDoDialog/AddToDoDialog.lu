@@ -52,26 +52,25 @@
 @ ml itemTitle
 
 # GetListType
-- timber list
-- color list
-- how about the tiles list?
+- todo list
+- shopping list
+- how about the to do list?
 
 @ list listType = 
-- timber :
-	- hard wood
-    - wall wood
-    - floor timber          
-    - fencing          
-- color :
-    - ocean grean
+- todo :
+	- to do
+    - todos
+    - laundry            
+- grocery :
+    - groceries
     - fruits
     - vegetables
     - household items
     - house hold items
-- tiles : 
-    - big tile 
-    - wooden tile
-    - synthetic tile
+- shopping : 
+    - shopping 
+    - shop
+    - shoppers
 
 # Help
 - Help

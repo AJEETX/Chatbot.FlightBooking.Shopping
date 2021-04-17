@@ -49,6 +49,13 @@ namespace Microsoft.BotBuilderSamples
                                     }
                                 }
                             },
+                            new TextInput()
+                            {
+                                Property = "dialog.itemTitle",
+                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
+                                Value = "=@itemTitle",
+                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
+                            },
                              // Get list type
                             new TextInput()
                             {
@@ -58,20 +65,13 @@ namespace Microsoft.BotBuilderSamples
                                 AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    "contains(createArray('timber', 'color', 'tiles'), toLower(this.value))",
+                                    "contains(createArray('todo', 'shopping', 'grocery'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
                                 MaxTurnCount = 50,
-                                DefaultValue = "timber",
+                                DefaultValue = "todo",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
-                            },
-                            new TextInput()
-                            {
-                                Property = "dialog.itemTitle",
-                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
-                                Value = "=@itemTitle",
-                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
                             },
                             // Add the new product to the timber category. Keep the cart in the user scope.
                             new EditArray()
