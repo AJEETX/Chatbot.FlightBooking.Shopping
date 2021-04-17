@@ -259,17 +259,25 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("DeleteItem","(?i)DeleteItem"),
                     new IntentPattern("Cart","(?i)view"),
                     new IntentPattern("GetUserProfile","(?i)profile"),
-                    new IntentPattern("BookFlight","(?i)flight"),
+                    new IntentPattern("BookFlight","(?i)book"),
+                    new IntentPattern("BookFlight","(?i)book a flight"),
+                    new IntentPattern("BookFlight","(?i)flight booking"),
+                    new IntentPattern("BookFlight","(?i)catch  a flight"),
+                    new IntentPattern("BookFlight","(?i)fly to"),
+                    new IntentPattern("BookFlight","(?i)fly from"),
+                    new IntentPattern("BookFlight","(?i)flight to"),
+                    new IntentPattern("BookFlight","(?i)fly from"),
+                    new IntentPattern("BookFlight","(?i)flying from"),
 
                     new IntentPattern("Help","(?i)help"),
-                    new IntentPattern("Help","(?i)query"),
+                    new IntentPattern("Help","(?i)query | question | q\\?estion | q\\?esti\\?n"),
                     new IntentPattern("Cancel","(?i)cancel"),
                     new IntentPattern("Exit","(?i)exit"),
                     new IntentPattern("Exit","(?i)bye"),
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
-                    new IntentPattern("GetWeather","(?i)weather")
+                    new IntentPattern("GetWeather","(?i)weather | we\\?ther | w\\?ather  | wea\\?her | weat\\?er | weath\\?r  | weathe\\?")
                 }
             };
         }

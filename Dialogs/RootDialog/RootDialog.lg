@@ -22,7 +22,7 @@
 > Structured template with composition
 # IntroMessage
 [Activity
-    Text = Hi, nice to meet you! I'm evie. Here are some things I can help with
+    Text = Hi, nice to meet you! I'm **evie**. Here are some things I can help with
     ${WelcomeActions()}
 ]
 

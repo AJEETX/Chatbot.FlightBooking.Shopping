@@ -49,14 +49,7 @@ namespace Microsoft.BotBuilderSamples
                                     }
                                 }
                             },
-                            new TextInput()
-                            {
-                                Property = "dialog.itemTitle",
-                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
-                                Value = "=@itemTitle",
-                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
-                            },
-                             // Get list type
+                              // Get list type
                             new TextInput()
                             {
                                 Property = "dialog.listType",
@@ -73,6 +66,14 @@ namespace Microsoft.BotBuilderSamples
                                 DefaultValue = "todo",
                                 DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                             },
+                            new TextInput()
+                            {
+                                Property = "dialog.itemTitle",
+                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
+                                Value = "=@itemTitle",
+                                AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
+                            },
+
                             // Add the new product to the timber category. Keep the cart in the user scope.
                             new EditArray()
                             {
