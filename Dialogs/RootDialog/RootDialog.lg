@@ -42,22 +42,22 @@
   - ${CityWeatherResponse()}
 
 # CityWeatherResponse
-- The  weather of the city = ${conversation.weather.city} is good.
+- The  weather of the place **${conversation.weather.city}** is good.
 
 # QueryResponse
-- The question about = ${conversation.weather.city} is good.
+- The question about = **${conversation.weather.query}** is good.
 
 
 # PromptForCityWeather
-- Which city weather you want to know ?
+- Pls enter the **city** to get weather ?
 
 
 # ConfirmWeather
-- Did you type the city = ${conversation.weather.city} ?.
+- Did you type the city **${conversation.weather.city}** ?.
 
 
 # ConfirmHelp
-- Did you type the question ' = ${conversation.help.query} '?.
+- Did you type the question ' = **${conversation.help.query}** '?.
 
 # ApologyPrefix
 - I'm sorry,
