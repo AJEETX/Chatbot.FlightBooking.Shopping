@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.IO;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.LanguageGeneration;
@@ -10,11 +7,12 @@ using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot
 {
     public class AdapterWithErrorHandler : BotFrameworkHttpAdapter
     {
         private Templates _templates;
+
         public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, IStorage storage,
             UserState userState, ConversationState conversationState, IConfiguration configuration)
             : base(credentialProvider)

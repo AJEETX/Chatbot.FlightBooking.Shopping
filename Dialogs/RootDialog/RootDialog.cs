@@ -1,32 +1,23 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using System.IO;
 using Microsoft.Bot.Builder.LanguageGeneration;
-using System.Runtime.InteropServices;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using AdaptiveExpressions.Properties;
-using ToDoBotWithLUIS.Dialogs.BookFlightDialog;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class RootDialog : ComponentDialog
     {
         private static IConfiguration Configuration;
 
-        public RootDialog(IConfiguration configuration)
-            : base(nameof(RootDialog))
+        public RootDialog(IConfiguration configuration) : base(nameof(RootDialog))
         {
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };
@@ -179,10 +170,7 @@ namespace Microsoft.BotBuilderSamples
                                 {
                                     // This is the global cancel in case a child dialog did not explicit handle cancel.
                                     new SendActivity("Cancelling all dialogs.."),
-                                    // SendActivity supports full language generation resolution.
-                                    // See here to learn more about language generation
-                                    // https://aka.ms/language-generation
-                                    new SendActivity("${WelcomeActions()}"),
+                                    new SendActivity("${SigninCard()}"),
                                     new CancelAllDialogs(),
                                 },
                                 ElseActions = new List<Dialog>()
@@ -226,6 +214,7 @@ namespace Microsoft.BotBuilderSamples
                             Condition = "$foreach.value.name != turn.activity.recipient.name",
                             Actions = new List<Dialog>()
                             {
+                                new SendActivity("${AdaptiveCard()}"),
                                 new SendActivity("${IntroMessage()}"),
                                 // Initialize global properties for the user.
                                 new SetProperty()
@@ -257,7 +246,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("DeleteItem","(?i)delete"),
                     new IntentPattern("DeleteItem","(?i)erase"),
                     new IntentPattern("DeleteItem","(?i)DeleteItem"),
-                    new IntentPattern("Cart","(?i)view"),
+                    new IntentPattern("ViewCart","(?i)view"),
                     new IntentPattern("GetUserProfile","(?i)profile"),
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)book a flight"),
@@ -277,6 +266,7 @@ namespace Microsoft.BotBuilderSamples
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("BuyProduct","(?i)buy"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };

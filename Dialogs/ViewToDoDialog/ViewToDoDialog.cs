@@ -12,12 +12,11 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class ViewToDoDialog : ComponentDialog
     {
-        public ViewToDoDialog(IConfiguration configuration)
-            : base(nameof(ViewToDoDialog))
+        public ViewToDoDialog(IConfiguration configuration) : base(nameof(ViewToDoDialog))
         {
             string[] paths = { ".", "Dialogs", "ViewToDoDialog", "ViewToDoDialog.lg" };
             string fullPath = Path.Combine(paths);

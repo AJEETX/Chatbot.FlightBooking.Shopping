@@ -29,13 +29,13 @@
 
 # AllListReadBack
 - ```
-**Timber List** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
+**Timber** - ${count(user.lists.timber)} ${ItemsOrdinality(user.lists.timber)}
 ${ListReadBack(user.lists.timber)}
 
-**Tiles List** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
+**Tiles** - ${count(user.lists.tiles)} ${ItemsOrdinality(user.lists.tiles)}
 ${ListReadBack(user.lists.tiles)}
 
-**Paint List** - ${count(user.lists.paint)} ${ItemsOrdinality(user.lists.paint)}
+**Paint** - ${count(user.lists.paint)} ${ItemsOrdinality(user.lists.paint)}
 ${ListReadBack(user.lists.paint)}
 ```
  

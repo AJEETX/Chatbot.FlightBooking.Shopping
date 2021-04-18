@@ -1,0 +1,91 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0",
+  "type": "AdaptiveCard",
+  "speak": "Your flight is confirmed for you and 3 other passengers from San Francisco to Amsterdam on Friday, October 10 8:30 AM",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Passengers",
+      "weight": "bolder",
+      "isSubtle": false
+    },
+    {
+      "type": "TextBlock",
+      "text": "${PassengerName()}",
+      "separator": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "1 Stops",
+      "weight": "bolder",
+      "spacing": "medium"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${PassengerTravelDate()}",
+      "weight": "bolder",
+      "spacing": "none"
+    },
+    {
+      "type": "ColumnSet",
+      "separator": true,
+      "columns": [
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${PassengerTravelDepartureCity()}",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "size": "extraLarge",
+              "color": "accent",
+              "text": "${PassengerTravelDepartureCity()}",
+              "spacing": "none"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": " "
+            },
+            {
+              "type": "Image",
+              "url": "http://adaptivecards.io/content/airplane.png",
+              "size": "small",
+              "spacing": "none"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "horizontalAlignment": "right",
+              "text": "${PassengerTravelDestinationCity()}",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "horizontalAlignment": "right",
+              "size": "extraLarge",
+              "color": "accent",
+              "text": "${PassengerTravelDestinationCity()}",
+              "spacing": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

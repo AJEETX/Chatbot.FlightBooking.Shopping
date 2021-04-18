@@ -1,65 +1,48 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System.IO;
+﻿using Evie.Chatbot.Bots;
+using Evie.Chatbot.Dialogs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.BotFramework;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Bot.Builder.Dialogs.Declarative.Resources;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
-            // Register dialog. This sets up memory paths for adaptive.
-            ComponentRegistration.Add(new DialogsComponentRegistration());
+            ComponentRegistration.Add(new DialogsComponentRegistration());          // Register dialog. This sets up memory paths for adaptive.
 
-            // Register adaptive component
-            ComponentRegistration.Add(new AdaptiveComponentRegistration());
+            ComponentRegistration.Add(new AdaptiveComponentRegistration());          // Register adaptive component
 
-            // Register to use language generation.
-            ComponentRegistration.Add(new LanguageGenerationComponentRegistration());
+            ComponentRegistration.Add(new LanguageGenerationComponentRegistration());       // Register to use language generation.
 
-            // Register luis component
-            ComponentRegistration.Add(new LuisComponentRegistration());
+            ComponentRegistration.Add(new LuisComponentRegistration());             // Register luis component
 
-            // Create the credential provider to be used with the Bot Framework Adapter.
-            services.AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();
+            services.AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();          // Create the credential provider to be used with the Bot Framework Adapter.
 
-            // Create the Bot Framework Adapter with error handling enabled. 
-            services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
+            services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();             // Create the Bot Framework Adapter with error handling enabled.
 
-            // Create the storage we'll be using for User and Conversation state. (Memory is great for testing purposes.) 
-            services.AddSingleton<IStorage, MemoryStorage>();
+            services.AddSingleton<IStorage, MemoryStorage>();                       // Create the storage we'll be using for User and Conversation state. (Memory is great for testing purposes.)
 
-            // Create the User state. (Used in this bot's Dialog implementation.)
-            services.AddSingleton<UserState>();
+            services.AddSingleton<UserState>();                     // Create the User state. (Used in this bot's Dialog implementation.)
 
-            // Create the Conversation state. (Used by the Dialog system itself.)
-            services.AddSingleton<ConversationState>();
+            services.AddSingleton<ConversationState>();             // Create the Conversation state. (Used by the Dialog system itself.)
 
-            // The Dialog that will be run by the bot.
-            services.AddSingleton<RootDialog>();
+            services.AddSingleton<RootDialog>();                    // The Dialog that will be run by the bot.
 
-            // Create the bot. the ASP Controller is expecting an IBot.
-            services.AddSingleton<IBot, DialogBot<RootDialog>>();
+            services.AddSingleton<IBot, DialogBot<RootDialog>>();           // Create the bot. the ASP Controller is expecting an IBot.
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

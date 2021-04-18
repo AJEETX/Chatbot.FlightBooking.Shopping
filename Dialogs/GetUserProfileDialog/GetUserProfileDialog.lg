@@ -10,17 +10,17 @@
 # AskFirstName.Invalid()
 - Sorry '${this.value}' does not work. I'm looking for a value between 3-50 characters. ${AskFirstName()}
 
-# AskUserAage
+# AskUserAge
 [Activity
-    Text = ${AckPhrase()} ${user.profile.name}, ${GetAge()}
+    Text = ${AckPhrase()} **${user.profile.name}**, ${GetAge()}
     SuggestedActions =  Help | Cancel
 ]
 
 # AskUserAge.Invalid
-- Sorry '${this.value}' does not work. I'm looking for a value between 1-150. ${GetAge()}
+- Sorry **'${this.value}'** does not work. I'm looking for a value between 1-150. ${GetAge()}
 
 # AskUserAge.Unrecognized
-- Sorry, I do not understand '${turn.activity.text}'. ${GetAge()}
+- Sorry, I do not understand **'${turn.activity.text}'**. ${GetAge()}
 
 # GetAge
 - What is your age?
@@ -31,10 +31,10 @@
 - Hiya
 
 # ProfileReadBackAgain
-- ${AckPhrase()} ${user.profile.name}, I remember your age as ${user.profile.age}
+- ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**
 
 # ProfileReadBack
-- ${AckPhrase()} ${user.profile.name}, I have your age as ${user.profile.age}
+- ${AckPhrase()} **${user.profile.name}**, I have your age as **${user.profile.age}**
 
 # GetProfileHelp
 - Local help for get profile. Just for demo.
@@ -50,3 +50,9 @@
 
 # NoValueForUserAgeReadBack
 - No issues. I will set your age as '30' for now. You can always say "I'm <your age> years old" to update your age.
+
+# AskUserMobile
+- Please enter mobile number with 10 digit
+
+# DefaultUserMobileResponse
+- Hey , I sent the Default value ${%DefaultValue}

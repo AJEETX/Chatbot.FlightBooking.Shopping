@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 
-namespace Microsoft.BotBuilderSamples
+namespace Evie.Chatbot.Dialogs
 {
     public class AddToDoDialog : ComponentDialog
     {
@@ -58,7 +58,7 @@ namespace Microsoft.BotBuilderSamples
                                 AllowInterruptions = "!@listType && turn.recognized.score >= 0.7",
                                 Validations = new List<BoolExpression>()
                                 {
-                                    "contains(createArray('timber', 'tiles', 'paint'), toLower(this.value))",
+                                    "contains(createArray('timber', 'paint', 'tiles'), toLower(this.value))",
                                 },
                                 OutputFormat = "=toLower(this.value)",
                                 InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
@@ -69,7 +69,7 @@ namespace Microsoft.BotBuilderSamples
                             new TextInput()
                             {
                                 Property = "dialog.itemTitle",
-                                Prompt = new ActivityTemplate("${GetItemTitle()}"),
+                                Prompt = new ActivityTemplate("${GetproductName()}"),
                                 Value = "=@itemTitle",
                                 AllowInterruptions = "!@itemTitle && turn.recognized.score >= 0.7"
                             },
@@ -101,7 +101,7 @@ namespace Microsoft.BotBuilderSamples
                     new OnDialogEvent()
                     {
                         Event = AdaptiveEvents.RecognizedIntent,
-                        Condition = "#GetItemTitle || #GetListType",
+                        Condition = "#GetproductName || #GetListType",
                         Actions = new List<Dialog>()
                         {
                             new SetProperties()
