@@ -31,10 +31,10 @@
 - Hiya
 
 # ProfileReadBackAgain
-- ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**
+- ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**.
 
 # ProfileReadBack
-- ${AckPhrase()} **${user.profile.name}**, I have your age as **${user.profile.age}**
+- ${AckPhrase()} **${user.profile.name}**, I have your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**.
 
 # GetProfileHelp
 - Local help for get profile. Just for demo.
