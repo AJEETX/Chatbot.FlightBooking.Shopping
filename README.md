@@ -101,3 +101,5 @@ This sample demonstrates using [Adaptive dialog][1],  [Language Generation][2] f
 [9]:https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-how-to-account-settings#authoring-key
 [10]:https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-concept-keys
 [extension]:https://marketplace.visualstudio.com/items?itemName=tomlm.vscode-dialog-debugger
+
+                                OutputFormat = "${join(foreach(split(this.value, ' '), item, concat(toUpper(substring(item, 0, 1)), substring(item, 1))), ' ')}",
