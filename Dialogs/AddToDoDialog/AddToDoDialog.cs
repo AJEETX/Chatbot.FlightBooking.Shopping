@@ -10,7 +10,7 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
 using AdaptiveExpressions.Properties;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Evie.Chatbot.Recognizers;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -26,7 +26,7 @@ namespace Evie.Chatbot.Dialogs
             var AddToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = CreateLuisRecognizer(),
+                Recognizer = CustomRegexRecognizer.CreateAddToDoDialogRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
@@ -138,18 +138,6 @@ namespace Evie.Chatbot.Dialogs
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
-        }
-
-        private static Recognizer CreateLuisRecognizer()
-        {
-            return new RegexRecognizer
-            {
-                Intents = new List<IntentPattern>
-                {
-                    new IntentPattern("Cart","(?i)cart"),
-                    new IntentPattern("Help","(?i)help")
-                }
-            };
         }
     }
 }

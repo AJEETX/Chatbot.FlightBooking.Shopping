@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +28,7 @@ namespace Evie.Chatbot.Dialogs
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 // Create and use a LUIS recognizer on the child
                 // Each child adaptive dialog can have its own recognizer.
-                Recognizer = CreateLuisRecognizer(),
+                Recognizer = CustomRegexRecognizer.CreateBookingRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
@@ -149,21 +149,6 @@ namespace Evie.Chatbot.Dialogs
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
-        }
-
-        private static Recognizer CreateLuisRecognizer()
-        {
-            return new RegexRecognizer
-            {
-                Intents = new List<IntentPattern>
-                {
-                    new IntentPattern("BookFlight","(?i)BookFlight"),
-                    new IntentPattern("BookFlight","(?i)book"),
-                    new IntentPattern("BookFlight","(?i)travel"),
-                    new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight")
-                }
-            };
         }
     }
 }

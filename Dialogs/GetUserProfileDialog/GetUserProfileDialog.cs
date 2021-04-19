@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
@@ -27,7 +28,7 @@ namespace Evie.Chatbot.Dialogs
             // Create instance of adaptive dialog.
             var userProfileDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
-                Recognizer = CreateLuisRecognizer(this.configuration),
+                Recognizer = CustomRegexRecognizer.CreateProfileRecognizer(),
                 Generator = new TemplateEngineLanguageGenerator(_templates),
                 Triggers = new List<OnCondition>()
                 {
@@ -216,35 +217,6 @@ namespace Evie.Chatbot.Dialogs
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
-        }
-
-        private static Recognizer CreateLuisRecognizer(IConfiguration Configuration)
-        {
-            return new RegexRecognizer
-            {
-                Intents = new List<IntentPattern>
-                {
-                    new IntentPattern("BookFlight","(?i)book"),
-                    new IntentPattern("BookFlight","(?i)travel"),
-                    new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Greeting","(?i)hello"),
-                    new IntentPattern("Greeting","(?i)hey"),
-                    new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Help","(?i)help"),
-                    new IntentPattern("Help","(?i)query"),
-                    new IntentPattern("Cancel","(?i)cancel"),
-                    new IntentPattern("Exit","(?i)exit"),
-                    new IntentPattern("Exit","(?i)bye"),
-                    new IntentPattern("Cancel","(?i)no"),
-                    new IntentPattern("Cancel","(?i)nope"),
-                    new IntentPattern("Cancel","(?i)no thanks"),
-                    new IntentPattern("BuyProduct","(?i)add"),
-                    new IntentPattern("GetWeather","(?i)weather")
-                }
-            };
         }
     }
 }
