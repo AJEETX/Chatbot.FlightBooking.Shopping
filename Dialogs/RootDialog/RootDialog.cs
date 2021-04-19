@@ -10,7 +10,7 @@ using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using Evie.Chatbot.Recognizer;
+using Evie.Chatbot.Recognizers;
 using Microsoft.Bot.Builder.AI.Luis;
 
 namespace Evie.Chatbot.Dialogs
@@ -41,9 +41,22 @@ namespace Evie.Chatbot.Dialogs
                     Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                     // Create a LUIS recognizer.
                     // The recognizer is built using the intents, utterances, patterns and entities defined in ./RootDialog.lu file
-                    Recognizer = _recognizer,
+                    Recognizer = new CrossTrainedRecognizerSet()
+                    {
+                        Recognizers = new List<Recognizer>()
+                        {
+                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                new LuisAdaptiveRecognizer()
+                                {
+                                    Id="LuisAppId",
+                                    ApplicationId = Configuration["LuisAppId"],
+                                    EndpointKey =  Configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                }
+                        }
+                    },
                     Triggers = new List<OnCondition>()
-                {
+                    {
                     // Add a rule to welcome user
                     new OnConversationUpdateActivity()
                     {

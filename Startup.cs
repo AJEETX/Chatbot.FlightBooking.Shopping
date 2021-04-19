@@ -1,6 +1,6 @@
 ﻿using Evie.Chatbot.Bots;
 using Evie.Chatbot.Dialogs;
-using Evie.Chatbot.Recognizer;
+using Evie.Chatbot.Recognizers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;

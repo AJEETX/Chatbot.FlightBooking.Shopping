@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
@@ -26,6 +28,20 @@ namespace Evie.Chatbot.Dialogs
             var bookFlightDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                new LuisAdaptiveRecognizer()
+                                {
+                                    Id="LuisAppId",
+                                    ApplicationId = Configuration["LuisAppId"],
+                                    EndpointKey =  Configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                }
+                        }
+                },
                 // Create and use a LUIS recognizer on the child
                 // Each child adaptive dialog can have its own recognizer.
                 Triggers = new List<OnCondition>()
