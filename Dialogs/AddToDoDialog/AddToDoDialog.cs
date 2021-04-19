@@ -26,7 +26,6 @@ namespace Evie.Chatbot.Dialogs
             var AddToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = CreateLuisRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
@@ -138,18 +137,6 @@ namespace Evie.Chatbot.Dialogs
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
-        }
-
-        private static Recognizer CreateLuisRecognizer()
-        {
-            return new RegexRecognizer
-            {
-                Intents = new List<IntentPattern>
-                {
-                    new IntentPattern("Cart","(?i)cart"),
-                    new IntentPattern("Help","(?i)help")
-                }
-            };
         }
     }
 }

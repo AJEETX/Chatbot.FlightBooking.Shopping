@@ -28,7 +28,6 @@ namespace Evie.Chatbot.Dialogs
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 // Create and use a LUIS recognizer on the child
                 // Each child adaptive dialog can have its own recognizer.
-                Recognizer = CreateLuisRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
@@ -149,21 +148,6 @@ namespace Evie.Chatbot.Dialogs
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
-        }
-
-        private static Recognizer CreateLuisRecognizer()
-        {
-            return new RegexRecognizer
-            {
-                Intents = new List<IntentPattern>
-                {
-                    new IntentPattern("BookFlight","(?i)BookFlight"),
-                    new IntentPattern("BookFlight","(?i)book"),
-                    new IntentPattern("BookFlight","(?i)travel"),
-                    new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight")
-                }
-            };
         }
     }
 }
