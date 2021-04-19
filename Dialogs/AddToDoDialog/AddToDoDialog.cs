@@ -10,7 +10,13 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
 using AdaptiveExpressions.Properties;
+<<<<<<< HEAD
 using Evie.Chatbot.Recognizers;
+=======
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
+>>>>>>> Integrated Lui, with regex
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -23,9 +29,23 @@ namespace Evie.Chatbot.Dialogs
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "AddToDoDialog", "AddToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
-            var AddToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
+            var AddToDoDialog = new AdaptiveDialog(nameof(Microsoft.Bot.Builder.Dialogs.Adaptive.AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                new LuisAdaptiveRecognizer()
+                                {
+                                    Id="LuisAppId",
+                                    ApplicationId = Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAppId"],
+                                    EndpointKey =  Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAPIHostName"]
+                                }
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
@@ -126,7 +146,7 @@ namespace Evie.Chatbot.Dialogs
                         Condition = "#Cart.Score >= 0.5",
                         Actions = new List<Dialog>()
                         {
-                            new BeginDialog(nameof(ViewToDoDialog))
+                            new BeginDialog(nameof(Chatbot.Dialogs.ViewToDoDialog))
                         }
                     },
                 }

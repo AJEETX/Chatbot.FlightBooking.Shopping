@@ -13,20 +13,43 @@ using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
 using AdaptiveExpressions.Properties;
 using Microsoft.Bot.Builder.Dialogs.Choices;
+<<<<<<< HEAD
 using Evie.Chatbot.Recognizers;
+=======
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
+>>>>>>> Integrated Lui, with regex
 
 namespace Evie.Chatbot.Dialogs
 {
     public class DeleteToDoDialog : ComponentDialog
     {
+        private static IConfiguration Configuration;
+
         public DeleteToDoDialog(IConfiguration configuration) : base(nameof(DeleteToDoDialog))
         {
+            Configuration = configuration;
             string[] paths = { ".", "Dialogs", "DeleteToDoDialog", "DeleteToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
             // Create instance of adaptive dialog.
             var DeleteToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                new LuisAdaptiveRecognizer()
+                                {
+                                    Id="LuisAppId",
+                                    ApplicationId = Configuration["LuisAppId"],
+                                    EndpointKey =  Configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                }
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

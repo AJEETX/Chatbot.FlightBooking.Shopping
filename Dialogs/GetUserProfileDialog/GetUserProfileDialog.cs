@@ -2,6 +2,10 @@
 using System.IO;
 using AdaptiveExpressions.Properties;
 using Evie.Chatbot.Recognizers;
+<<<<<<< HEAD
+=======
+using Microsoft.Bot.Builder.AI.Luis;
+>>>>>>> Integrated Lui, with regex
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
@@ -29,6 +33,20 @@ namespace Evie.Chatbot.Dialogs
             var userProfileDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(_templates),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                new LuisAdaptiveRecognizer()
+                                {
+                                    Id="LuisAppId",
+                                    ApplicationId = configuration["LuisAppId"],
+                                    EndpointKey =  configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                                }
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
                     // Actions to execute when this dialog begins. This dialog will attempt to fill user profile.

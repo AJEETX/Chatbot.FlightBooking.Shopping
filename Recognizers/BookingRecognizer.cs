@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Evie.Chatbot.Recognizer
+namespace Evie.Chatbot.Recognizers
 {
     public class BookingRecognizer : IRecognizer
     {
