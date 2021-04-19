@@ -25,7 +25,6 @@ namespace Evie.Chatbot.Dialogs
             var ViewToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = CustomRegexRecognizer.CreateViewRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

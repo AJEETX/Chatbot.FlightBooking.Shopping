@@ -27,7 +27,6 @@ namespace Evie.Chatbot.Dialogs
             var DeleteToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = CustomRegexRecognizer.CreateDeleteRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

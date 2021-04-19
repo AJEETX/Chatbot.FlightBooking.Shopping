@@ -10,7 +10,8 @@ using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using Evie.Chatbot.Recognizers;
+using Evie.Chatbot.Recognizer;
+using Microsoft.Bot.Builder.AI.Luis;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -18,20 +19,30 @@ namespace Evie.Chatbot.Dialogs
     {
         private static IConfiguration Configuration;
 
-        public RootDialog(IConfiguration configuration) : base(nameof(RootDialog))
+        public RootDialog(BookingRecognizer luisRecognizer, IConfiguration configuration) : base(nameof(RootDialog))
         {
             Configuration = configuration;
             string[] paths = { ".", "Dialogs", "RootDialog", "RootDialog.lg" };
             string fullPath = Path.Combine(paths);
-            // Create instance of adaptive dialog.
-            var rootDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
+            var luisIsConfigured = !string.IsNullOrEmpty(configuration["LuisAppId"]) && !string.IsNullOrEmpty(configuration["LuisAPIKey"]) && !string.IsNullOrEmpty(configuration["LuisAPIHostName"]);
+            if (luisIsConfigured)
             {
-                // Add a generator. This is how all Language Generation constructs specified for this dialog are resolved.
-                Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                // Create a LUIS recognizer.
-                // The recognizer is built using the intents, utterances, patterns and entities defined in ./RootDialog.lu file
-                Recognizer = CustomRegexRecognizer.CreateRootRecognizer(),
-                Triggers = new List<OnCondition>()
+                var _recognizer = new LuisAdaptiveRecognizer()
+                {
+                    ApplicationId = configuration["LuisAppId"],
+                    EndpointKey = configuration["LuisAPIKey"],
+                    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                };
+
+                // Create instance of adaptive dialog.
+                var rootDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
+                {
+                    // Add a generator. This is how all Language Generation constructs specified for this dialog are resolved.
+                    Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
+                    // Create a LUIS recognizer.
+                    // The recognizer is built using the intents, utterances, patterns and entities defined in ./RootDialog.lu file
+                    Recognizer = _recognizer,
+                    Triggers = new List<OnCondition>()
                 {
                     // Add a rule to welcome user
                     new OnConversationUpdateActivity()
@@ -183,19 +194,20 @@ namespace Evie.Chatbot.Dialogs
                         }
                     }
                 }
-            };
+                };
 
-            // Add named dialogs to the DialogSet. These names are saved in the dialog state.
-            AddDialog(rootDialog);
+                // Add named dialogs to the DialogSet. These names are saved in the dialog state.
+                AddDialog(rootDialog);
 
-            // Add all child dialogS
-            AddDialog(new AddToDoDialog(configuration));
-            AddDialog(new DeleteToDoDialog(configuration));
-            AddDialog(new ViewToDoDialog(configuration));
-            AddDialog(new GetUserProfileDialog(configuration));
-            AddDialog(new BookFlightDialog(configuration));
-            // The initial child Dialog to run.
-            InitialDialogId = nameof(AdaptiveDialog);
+                // Add all child dialogS
+                AddDialog(new AddToDoDialog(configuration));
+                AddDialog(new DeleteToDoDialog(configuration));
+                AddDialog(new ViewToDoDialog(configuration));
+                AddDialog(new GetUserProfileDialog(configuration));
+                AddDialog(new BookFlightDialog(configuration));
+                // The initial child Dialog to run.
+                InitialDialogId = nameof(AdaptiveDialog);
+            }
         }
 
         private static List<Dialog> WelcomeUserSteps()

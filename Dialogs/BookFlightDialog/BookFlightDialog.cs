@@ -28,7 +28,6 @@ namespace Evie.Chatbot.Dialogs
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                 // Create and use a LUIS recognizer on the child
                 // Each child adaptive dialog can have its own recognizer.
-                Recognizer = CustomRegexRecognizer.CreateBookingRecognizer(),
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

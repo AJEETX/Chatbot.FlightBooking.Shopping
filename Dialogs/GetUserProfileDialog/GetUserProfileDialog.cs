@@ -28,7 +28,6 @@ namespace Evie.Chatbot.Dialogs
             // Create instance of adaptive dialog.
             var userProfileDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
-                Recognizer = CustomRegexRecognizer.CreateProfileRecognizer(),
                 Generator = new TemplateEngineLanguageGenerator(_templates),
                 Triggers = new List<OnCondition>()
                 {
