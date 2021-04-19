@@ -66,7 +66,7 @@
 # SigninCard
 [SigninCard
     text = Restart again
-    buttons = hi
+    buttons = Hi
 ]
 
 # AdaptiveCard

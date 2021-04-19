@@ -177,7 +177,7 @@ namespace Evie.Chatbot.Dialogs
                                 ElseActions = new List<Dialog>()
                                 {
                                     new SendActivity("${CancelCancelled()}"),
-                                    new SendActivity("${WelcomeActions()}")
+                                    new SendActivity("${SigninCard()}")
                                 }
                             }
                         }
