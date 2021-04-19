@@ -40,9 +40,9 @@ namespace Evie.Chatbot.Dialogs
                                 new LuisAdaptiveRecognizer()
                                 {
                                     Id="LuisAppId",
-                                    ApplicationId = Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAppId"],
-                                    EndpointKey =  Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + Chatbot.Dialogs.AddToDoDialog.Configuration["LuisAPIHostName"]
+                                    ApplicationId = Configuration["LuisAppId"],
+                                    EndpointKey =  Configuration["LuisAPIKey"],
+                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
                                 }
                         }
                 },
