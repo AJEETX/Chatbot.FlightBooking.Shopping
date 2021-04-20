@@ -142,7 +142,7 @@ namespace Evie.Chatbot.Dialogs
                         Condition = "#Cart.Score >= 0.5",
                         Actions = new List<Dialog>()
                         {
-                            new BeginDialog(nameof(Chatbot.Dialogs.ViewToDoDialog))
+                            new BeginDialog(nameof(ViewToDoDialog))
                         }
                     },
                 }

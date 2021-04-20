@@ -49,17 +49,18 @@ namespace Evie.Chatbot.Dialogs
                     {
                         Actions = new List<Dialog>()
                         {
-                             new IfCondition()
+                            new IfCondition()
                             {
                                 // All conditions are expressed using adaptive expressions.
                                 // See https://aka.ms/adaptive-expressions to learn more
-                                Condition = "user.profile.name != null",
+                                Condition = "user.profile.name != null || user.profile.age != null || user.profile.mobile != null",
                                 Actions = new List<Dialog>()
                                 {
                                     // show profile.
                                     new SendActivity("${ProfileReadBackAgain()}"),
+                                    new BeginDialog(nameof(ViewToDoDialog)),
                                     new EndDialog()
-                                }
+                                },
                             },
                             new SetProperties()
                             {
