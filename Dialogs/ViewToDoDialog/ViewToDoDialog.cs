@@ -47,6 +47,22 @@ namespace Evie.Chatbot.Dialogs
                     {
                         Actions = new List<Dialog>()
                         {
+                            
+                            // See if any list has any items.
+                            new IfCondition()
+                            {
+                                Condition = "user.profile.name !=null",
+                                Actions = new List<Dialog>()
+                                {
+                                    new SendActivity("${ShowList()}"),
+                                    new CancelDialog()
+                                },
+                                ElseActions = new List<Dialog>()
+                                {
+                                    new SendActivity("${NoItemsInLists()}"),
+                                    new CancelDialog()
+                                }
+                            },
                             // See if any list has any items.
                             new IfCondition()
                             {
