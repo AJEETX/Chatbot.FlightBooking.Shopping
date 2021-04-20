@@ -1,8 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Bot.Builder;
+﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Extensions.Logging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Evie.Chatbot.Bots
 {

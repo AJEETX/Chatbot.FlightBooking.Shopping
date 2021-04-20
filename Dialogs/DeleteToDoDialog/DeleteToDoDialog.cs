@@ -1,25 +1,21 @@
-﻿using System;
+﻿using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Adaptive;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
+using Microsoft.Bot.Builder.Dialogs.Choices;
+using Microsoft.Bot.Builder.LanguageGeneration;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
-using Microsoft.Bot.Builder.LanguageGeneration;
-using Microsoft.Extensions.Configuration;
-using AdaptiveExpressions.Properties;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-<<<<<<< HEAD
-using Evie.Chatbot.Recognizers;
-=======
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using Evie.Chatbot.Recognizers;
-using Microsoft.Bot.Builder.AI.Luis;
->>>>>>> Integrated Lui, with regex
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -40,14 +36,14 @@ namespace Evie.Chatbot.Dialogs
                 {
                     Recognizers = new List<Recognizer>()
                         {
-                                new CustomerRegexRecognizer().CreateRecognizer(),
-                                new LuisAdaptiveRecognizer()
-                                {
-                                    Id="LuisAppId",
-                                    ApplicationId = Configuration["LuisAppId"],
-                                    EndpointKey =  Configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
-                                }
+                                CustomRegexRecognizer.CreateDeleteRecognizer(),
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = Configuration["LuisAppId"],
+                                //    EndpointKey =  Configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                //}
                         }
                 },
                 Triggers = new List<OnCondition>()

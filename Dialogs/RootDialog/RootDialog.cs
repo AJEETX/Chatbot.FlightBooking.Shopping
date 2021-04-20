@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
-using System.IO;
-using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using Evie.Chatbot.Recognizers;
-using Microsoft.Bot.Builder.AI.Luis;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
+using Microsoft.Bot.Builder.LanguageGeneration;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -46,7 +46,7 @@ namespace Evie.Chatbot.Dialogs
                     {
                         Recognizers = new List<Recognizer>()
                         {
-                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                CustomRegexRecognizer.CreateRootRecognizer(),
                                 //_recognizer
                         }
                     },
