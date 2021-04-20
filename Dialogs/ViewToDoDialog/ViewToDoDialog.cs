@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
-using AdaptiveExpressions.Properties;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -20,10 +22,25 @@ namespace Evie.Chatbot.Dialogs
         {
             string[] paths = { ".", "Dialogs", "ViewToDoDialog", "ViewToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
+            var _recognizer = new LuisAdaptiveRecognizer()
+            {
+                Id = nameof(LuisAdaptiveRecognizer),
+                ApplicationId = configuration["LuisAppId"],
+                EndpointKey = configuration["LuisAPIKey"],
+                Endpoint = "https://" + configuration["LuisAPIHostName"]
+            };
             // Create instance of adaptive dialog.
             var ViewToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                CustomRegexRecognizer.CreateViewRecognizer(),
+                                //_recognizer
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

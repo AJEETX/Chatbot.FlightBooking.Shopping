@@ -1,18 +1,16 @@
-﻿using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
-using System;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Evie.Chatbot.Recognizers
 {
-    public class CustomerRegexRecognizer
+    public class CustomRegexRecognizer
     {
-        public RegexRecognizer CreateRecognizer()
+        public static Recognizer CreateRootRecognizer()
         {
-            return new RegexRecognizer()
+            return new RegexRecognizer
             {
-                Id = "CustomerRegexRecognizerId",
+                Id = "CreateRootRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("Greeting","(?i)hi there"),
@@ -31,17 +29,12 @@ namespace Evie.Chatbot.Recognizers
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)book a flight"),
                     new IntentPattern("BookFlight","(?i)flight booking"),
-                    new IntentPattern("BookFlight","(?i)catch a flight"),
+                    new IntentPattern("BookFlight","(?i)catch  a flight"),
                     new IntentPattern("BookFlight","(?i)fly to"),
                     new IntentPattern("BookFlight","(?i)fly from"),
                     new IntentPattern("BookFlight","(?i)flight to"),
                     new IntentPattern("BookFlight","(?i)fly from"),
                     new IntentPattern("BookFlight","(?i)flying from"),
-                    new IntentPattern("BookFlight","(?i)BookFlight"),
-                    new IntentPattern("BookFlight","(?i)book"),
-                    new IntentPattern("BookFlight","(?i)travel"),
-                    new IntentPattern("BookFlight","(?i)fly"),
-                    new IntentPattern("BookFlight","(?i)flight"),
 
                     new IntentPattern("Help","(?i)help"),
                     new IntentPattern("Help","(?i)query | question | q\\?estion | q\\?esti\\?n"),
@@ -52,30 +45,126 @@ namespace Evie.Chatbot.Recognizers
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
                     new IntentPattern("BuyProduct","(?i)buy"),
-                    new IntentPattern("Cart","(?i)cart"),
-                    new IntentPattern("Help","(?i)help"),
-                    new IntentPattern("GetWeather","(?i)weather"),
-                    new IntentPattern()
-                    {
-                        Intent = "AddIntent",
-                        Pattern = "(?i)(?:add|create) .*(?:to-do|todo|task)(?: )?(?:named (?<title>.*))?"
-                    },
-                    new IntentPattern()
-                    {
-                        Intent = "HelpIntent",
-                        Pattern = "(?i)help"
-                    },
-                    new IntentPattern()
-                    {
-                        Intent = "CancelIntent",
-                        Pattern = "(?i)cancel|never mind"
-                    }
-                },
-                Entities = new List<EntityRecognizer>()
+                    new IntentPattern("GetWeather","(?i)weather")
+                }
+            };
+        }
+
+        public static Recognizer CreateAddToDoDialogRecognizer()
+        {
+            return new RegexRecognizer
+            {
+                Id = "CreateAddToDoDialogRecognizer",
+                Intents = new List<IntentPattern>
                 {
-                    new ConfirmationEntityRecognizer(),
-                    new DateTimeEntityRecognizer(),
-                    new NumberEntityRecognizer()
+                    new IntentPattern("Cart","(?i)cart"),
+                    new IntentPattern("Help","(?i)help")
+                }
+            };
+        }
+
+        public static Recognizer CreateBookingRecognizer()
+        {
+            return new RegexRecognizer
+            {
+                Id = "CreateBookingRecognizer",
+                Intents = new List<IntentPattern>
+                {
+                    new IntentPattern("BookFlight","(?i)BookFlight"),
+                    new IntentPattern("BookFlight","(?i)book"),
+                    new IntentPattern("BookFlight","(?i)travel"),
+                    new IntentPattern("BookFlight","(?i)fly"),
+                    new IntentPattern("BookFlight","(?i)flight")
+                }
+            };
+        }
+
+        public static Recognizer CreateDeleteRecognizer()
+        {
+            return new RegexRecognizer
+            {
+                Id = "CreateDeleteRecognizer",
+                Intents = new List<IntentPattern>
+                {
+                    new IntentPattern("BookFlight","(?i)book"),
+                    new IntentPattern("BookFlight","(?i)travel"),
+                    new IntentPattern("BookFlight","(?i)fly"),
+                    new IntentPattern("BookFlight","(?i)flight"),
+                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Greeting","(?i)hello"),
+                    new IntentPattern("Greeting","(?i)hey"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Help","(?i)help"),
+                    new IntentPattern("Help","(?i)query"),
+                    new IntentPattern("Cancel","(?i)cancel"),
+                    new IntentPattern("Exit","(?i)exit"),
+                    new IntentPattern("Exit","(?i)bye"),
+                    new IntentPattern("Cancel","(?i)no"),
+                    new IntentPattern("Cancel","(?i)nope"),
+                    new IntentPattern("Cancel","(?i)no thanks"),
+                    new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("GetWeather","(?i)weather")
+                }
+            };
+        }
+
+        public static Recognizer CreateProfileRecognizer()
+        {
+            return new RegexRecognizer
+            {
+                Id = "CreateProfileRecognizer",
+                Intents = new List<IntentPattern>
+                {
+                    new IntentPattern("BookFlight","(?i)book"),
+                    new IntentPattern("BookFlight","(?i)travel"),
+                    new IntentPattern("BookFlight","(?i)fly"),
+                    new IntentPattern("BookFlight","(?i)flight"),
+                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Greeting","(?i)hello"),
+                    new IntentPattern("Greeting","(?i)hey"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Help","(?i)help"),
+                    new IntentPattern("Help","(?i)query"),
+                    new IntentPattern("Cancel","(?i)cancel"),
+                    new IntentPattern("Exit","(?i)exit"),
+                    new IntentPattern("Exit","(?i)bye"),
+                    new IntentPattern("Cancel","(?i)no"),
+                    new IntentPattern("Cancel","(?i)nope"),
+                    new IntentPattern("Cancel","(?i)no thanks"),
+                    new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("GetWeather","(?i)weather")
+                }
+            };
+        }
+
+        public static Recognizer CreateViewRecognizer()
+        {
+            return new RegexRecognizer
+            {
+                Id = "CreateViewRecognizer",
+                Intents = new List<IntentPattern>
+                {
+                    new IntentPattern("BookFlight","(?i)book"),
+                    new IntentPattern("BookFlight","(?i)travel"),
+                    new IntentPattern("BookFlight","(?i)fly"),
+                    new IntentPattern("BookFlight","(?i)flight"),
+                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Greeting","(?i)hello"),
+                    new IntentPattern("Greeting","(?i)hey"),
+                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Help","(?i)help"),
+                    new IntentPattern("Help","(?i)query"),
+                    new IntentPattern("Cancel","(?i)cancel"),
+                    new IntentPattern("Exit","(?i)exit"),
+                    new IntentPattern("Exit","(?i)bye"),
+                    new IntentPattern("Cancel","(?i)no"),
+                    new IntentPattern("Cancel","(?i)nope"),
+                    new IntentPattern("Cancel","(?i)no thanks"),
+                    new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("GetWeather","(?i)weather")
                 }
             };
         }

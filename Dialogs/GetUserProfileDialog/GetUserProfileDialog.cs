@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using AdaptiveExpressions.Properties;
+﻿using AdaptiveExpressions.Properties;
 using Evie.Chatbot.Recognizers;
-using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
@@ -13,6 +10,8 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -34,7 +33,7 @@ namespace Evie.Chatbot.Dialogs
                 {
                     Recognizers = new List<Recognizer>()
                         {
-                                new CustomerRegexRecognizer().CreateRecognizer(),
+                                CustomRegexRecognizer.CreateProfileRecognizer(),
                                 //new LuisAdaptiveRecognizer()
                                 //{
                                 //    Id="LuisAppId",
@@ -46,12 +45,6 @@ namespace Evie.Chatbot.Dialogs
                 },
                 Triggers = new List<OnCondition>()
                 {
-                    // Actions to execute when this dialog begins. This dialog will attempt to fill user profile.
-                    // Each adaptive dialog can have its own recognizer. The LU definition for this dialog is under GetUserProfileDialog.lu
-                    // This dialog supports local intents. When you say things like 'why do you need my name' or 'I will not give you my name'
-                    // it uses its own recognizer to handle those.
-                    // It also demonstrates the consultation capability of adaptive dialog. When the local recognizer does not come back with
-                    // a high-confidence recognition, this dialog will defer to the parent dialog to see if it wants to handle the user input.
                     new OnBeginDialog()
                     {
                         Actions = new List<Dialog>()
@@ -162,10 +155,8 @@ namespace Evie.Chatbot.Dialogs
                 }
             };
 
-            // Add named dialogs to the DialogSet. These names are saved in the dialog state.
             AddDialog(userProfileDialog);
 
-            // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
         }
     }

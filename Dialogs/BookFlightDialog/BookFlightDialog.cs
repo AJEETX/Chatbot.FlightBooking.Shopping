@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using AdaptiveExpressions.Properties;
+﻿using AdaptiveExpressions.Properties;
 using Evie.Chatbot.Recognizers;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Bot.Builder.Dialogs;
@@ -13,6 +11,8 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -32,14 +32,14 @@ namespace Evie.Chatbot.Dialogs
                 {
                     Recognizers = new List<Recognizer>()
                         {
-                                new CustomerRegexRecognizer().CreateRecognizer(),
-                                new LuisAdaptiveRecognizer()
-                                {
-                                    Id="LuisAppId",
-                                    ApplicationId = Configuration["LuisAppId"],
-                                    EndpointKey =  Configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
-                                }
+                                CustomRegexRecognizer.CreateBookingRecognizer(),
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = Configuration["LuisAppId"],
+                                //    EndpointKey =  Configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                //}
                         }
                 },
                 // Create and use a LUIS recognizer on the child
