@@ -29,6 +29,7 @@ namespace Evie.Chatbot.Dialogs
             {
                 var _recognizer = new LuisAdaptiveRecognizer()
                 {
+                    Id = nameof(LuisAdaptiveRecognizer),
                     ApplicationId = configuration["LuisAppId"],
                     EndpointKey = configuration["LuisAPIKey"],
                     Endpoint = "https://" + configuration["LuisAPIHostName"]
@@ -46,167 +47,161 @@ namespace Evie.Chatbot.Dialogs
                         Recognizers = new List<Recognizer>()
                         {
                                 new CustomerRegexRecognizer().CreateRecognizer(),
-                                new LuisAdaptiveRecognizer()
-                                {
-                                    Id="LuisAppId",
-                                    ApplicationId = Configuration["LuisAppId"],
-                                    EndpointKey =  Configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + Configuration["LuisAPIHostName"]
-                                }
+                                //_recognizer
                         }
                     },
                     Triggers = new List<OnCondition>()
                     {
-                    // Add a rule to welcome user
-                    new OnConversationUpdateActivity()
-                    {
-                        Actions = WelcomeUserSteps()
-                    },
-                    // Intent rules for the LUIS model. Each intent here corresponds to an intent defined in ./RootDialog.lu file
-                    new OnIntent("Greeting")
-                    {
-                        Actions = new List<Dialog>()
+                        // Add a rule to welcome user
+                        new OnConversationUpdateActivity()
                         {
-                            new SendActivity("${HelpRootDialog()}")
-                            }
-                    },
-                    new OnIntent("BuyProduct")
-                    {
-                        // LUIS returns a confidence score with intent classification.
-                        // Conditions are expressions.
-                        // This expression ensures that this trigger only fires if the confidence score for the
-                        // AddToDoDialog intent classification is at least 0.7
-                        Condition = "#BuyProduct.Score >= 0.5",
-                        Actions = new List<Dialog>()
+                            Actions = WelcomeUserSteps()
+                        },
+                        // Intent rules for the LUIS model. Each intent here corresponds to an intent defined in ./RootDialog.lu file
+                        new OnIntent("Greeting")
                         {
-                            new BeginDialog(nameof(AddToDoDialog))
-                        }
-                    },
-                    new OnIntent("GetWeather")
-                    {
-                        Intent = "GetWeather",
-                        Actions = new List<Dialog> ()
-                        {
-                            new SetProperties()
+                            Actions = new List<Dialog>()
                             {
-                                Assignments = new List<PropertyAssignment>()
+                                new SendActivity("${HelpRootDialog()}")
+                                }
+                        },
+                        new OnIntent("BuyProduct")
+                        {
+                            // LUIS returns a confidence score with intent classification.
+                            // Conditions are expressions.
+                            // This expression ensures that this trigger only fires if the confidence score for the
+                            // AddToDoDialog intent classification is at least 0.7
+                            Condition = "#BuyProduct.Score >= 0.5",
+                            Actions = new List<Dialog>()
+                            {
+                                new BeginDialog(nameof(AddToDoDialog))
+                            }
+                        },
+                        new OnIntent("GetWeather")
+                        {
+                            Intent = "GetWeather",
+                            Actions = new List<Dialog> ()
+                            {
+                                new SetProperties()
                                 {
-                                    new PropertyAssignment()
+                                    Assignments = new List<PropertyAssignment>()
                                     {
-                                        Property = "conversation.weather",
-                                        Value = "={}"
-                                    },
+                                        new PropertyAssignment()
+                                        {
+                                            Property = "conversation.weather",
+                                            Value = "={}"
+                                        },
 
-                                    // We will only save any geography city entities that explicitly have been classified as either fromCity or toCity.
-                                    new PropertyAssignment()
+                                        // We will only save any geography city entities that explicitly have been classified as either fromCity or toCity.
+                                        new PropertyAssignment()
+                                        {
+                                            Property = "conversation.weather.city",
+                                            // Value is an expression. @entityName is shorthand to refer to the value of an entity recognized.
+                                            // @xxx is same as turn.recognized.entities.xxx
+                                            Value = "=@toCity.location"
+                                        }
+                                    }
+                                },
+                                new TextInput()
+                                {
+                                    Property = "conversation.weather.city",
+                                    Prompt = new ActivityTemplate("${PromptForCityWeatherResponse()}"),
+                                    AllowInterruptions = "!@toCity  || !@geographyV2",
+                                    // Value is an expression. Take any recognized city name as fromCity
+                                    Value = "=@toCity.location"
+                                },
+                                new ConfirmInput()
+                                {
+                                    Property = "turn.weatherConfirmation",
+                                    Prompt = new ActivityTemplate("${ConfirmWeather()}"),
+                                    // You can use this flag to control when a specific input participates in consultation bubbling and can be interrupted.
+                                    // 'false' means interruption is not allowed when this input is active.
+                                    AllowInterruptions = "false"
+                                },
+                                new IfCondition()
+                                {
+                                    // All conditions are expressed using adaptive expressions.
+                                    // See https://aka.ms/adaptive-expressions to learn more
+                                    Condition = "turn.weatherConfirmation == true",
+                                    Actions = new List<Dialog>()
                                     {
-                                        Property = "conversation.weather.city",
-                                        // Value is an expression. @entityName is shorthand to refer to the value of an entity recognized.
-                                        // @xxx is same as turn.recognized.entities.xxx
-                                        Value = "=@toCity.location"
+                                        // TODO: book flight.
+                                        new SendActivity("${CityWeatherResponse()}")
+                                    },
+                                    ElseActions = new List<Dialog>()
+                                    {
+                                        new SendActivity("Can't provide weather. Thank you.")
                                     }
                                 }
-                            },
-                            new TextInput()
-                            {
-                                Property = "conversation.weather.city",
-                                Prompt = new ActivityTemplate("${PromptForCityWeatherResponse()}"),
-                                AllowInterruptions = "!@toCity  || !@geographyV2",
-                                // Value is an expression. Take any recognized city name as fromCity
-                                Value = "=@toCity.location"
-                            },
-                            new ConfirmInput()
-                            {
-                                Property = "turn.weatherConfirmation",
-                                Prompt = new ActivityTemplate("${ConfirmWeather()}"),
-                                // You can use this flag to control when a specific input participates in consultation bubbling and can be interrupted.
-                                // 'false' means interruption is not allowed when this input is active.
-                                AllowInterruptions = "false"
-                            },
-                            new IfCondition()
-                            {
-                                // All conditions are expressed using adaptive expressions.
-                                // See https://aka.ms/adaptive-expressions to learn more
-                                Condition = "turn.weatherConfirmation == true",
-                                Actions = new List<Dialog>()
-                                {
-                                    // TODO: book flight.
-                                    new SendActivity("${CityWeatherResponse()}")
-                                },
-                                ElseActions = new List<Dialog>()
-                                {
-                                    new SendActivity("Can't provide weather. Thank you.")
-                                }
                             }
-                        }
-                    },
-                    new OnIntent("BookFlight")
-                    {
-                        Condition = "#BookFlight.Score >= 0.5",
-                        Actions = new List<Dialog>()
+                        },
+                        new OnIntent("BookFlight")
                         {
-                            new BeginDialog(nameof(BookFlightDialog))
-                        }
-                    },
-                    new OnIntent("DeleteItem")
-                    {
-                        Condition = "#DeleteItem.Score >= 0.5",
-                        Actions = new List<Dialog>()
-                        {
-                            new BeginDialog(nameof(DeleteToDoDialog))
-                        }
-                    },
-                    new OnIntent("GetUserProfile")
-                    {
-                        Condition = "#GetUserProfile.Score >= 0.5",
-                        Actions = new List<Dialog>()
-                        {
-                             new BeginDialog(nameof(GetUserProfileDialog))
-                        }
-                    },
-                    // Come back with LG template based readback for global help
-                    new OnIntent("Help")
-                    {
-                        Condition = "#Help.Score >= 0.8",
-                        Actions = new List<Dialog>()
-                        {
-                            new SendActivity("${HelpRootDialog()}")
-                        }
-                    },
-                    new OnIntent("Cancel")
-                    {
-                        Condition = "#Cancel.Score >= 0.8",
-                        Actions = new List<Dialog>()
-                        {
-                            // Ask user for confirmation.
-                            // This input will still use the recognizer and specifically the confirm list entity extraction.
-                            new ConfirmInput()
+                            Condition = "#BookFlight.Score >= 0.5",
+                            Actions = new List<Dialog>()
                             {
-                                Prompt = new ActivityTemplate("${Cancel.prompt()}"),
-                                Property = "turn.confirm",
-                                Value = "=@confirmation",
-                                // Allow user to intrrupt this only if we did not get a value for confirmation.
-                                AllowInterruptions = "!@confirmation"
-                            },
-                            new IfCondition()
+                                new BeginDialog(nameof(BookFlightDialog))
+                            }
+                        },
+                        new OnIntent("DeleteItem")
+                        {
+                            Condition = "#DeleteItem.Score >= 0.5",
+                            Actions = new List<Dialog>()
                             {
-                                Condition = "turn.confirm == true",
-                                Actions = new List<Dialog>()
+                                new BeginDialog(nameof(DeleteToDoDialog))
+                            }
+                        },
+                        new OnIntent("GetUserProfile")
+                        {
+                            Condition = "#GetUserProfile.Score >= 0.5",
+                            Actions = new List<Dialog>()
+                            {
+                                 new BeginDialog(nameof(GetUserProfileDialog))
+                            }
+                        },
+                        // Come back with LG template based readback for global help
+                        new OnIntent("Help")
+                        {
+                            Condition = "#Help.Score >= 0.8",
+                            Actions = new List<Dialog>()
+                            {
+                                new SendActivity("${HelpRootDialog()}")
+                            }
+                        },
+                        new OnIntent("Cancel")
+                        {
+                            Condition = "#Cancel.Score >= 0.8",
+                            Actions = new List<Dialog>()
+                            {
+                                // Ask user for confirmation.
+                                // This input will still use the recognizer and specifically the confirm list entity extraction.
+                                new ConfirmInput()
                                 {
-                                    // This is the global cancel in case a child dialog did not explicit handle cancel.
-                                    new SendActivity("Cancelling all dialogs.."),
-                                    new SendActivity("${SigninCard()}"),
-                                    new CancelAllDialogs(),
+                                    Prompt = new ActivityTemplate("${Cancel.prompt()}"),
+                                    Property = "turn.confirm",
+                                    Value = "=@confirmation",
+                                    // Allow user to intrrupt this only if we did not get a value for confirmation.
+                                    AllowInterruptions = "!@confirmation"
                                 },
-                                ElseActions = new List<Dialog>()
+                                new IfCondition()
                                 {
-                                    new SendActivity("${CancelCancelled()}"),
-                                    new SendActivity("${SigninCard()}")
+                                    Condition = "turn.confirm == true",
+                                    Actions = new List<Dialog>()
+                                    {
+                                        // This is the global cancel in case a child dialog did not explicit handle cancel.
+                                        new SendActivity("Cancelling all dialogs.."),
+                                        new SendActivity("${SigninCard()}"),
+                                        new CancelAllDialogs(),
+                                    },
+                                    ElseActions = new List<Dialog>()
+                                    {
+                                        new SendActivity("${CancelCancelled()}"),
+                                        new SendActivity("${SigninCard()}")
+                                    }
                                 }
                             }
                         }
                     }
-                }
                 };
 
                 // Add named dialogs to the DialogSet. These names are saved in the dialog state.

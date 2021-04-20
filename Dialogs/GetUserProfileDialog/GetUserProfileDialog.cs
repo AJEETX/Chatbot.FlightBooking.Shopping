@@ -35,13 +35,13 @@ namespace Evie.Chatbot.Dialogs
                     Recognizers = new List<Recognizer>()
                         {
                                 new CustomerRegexRecognizer().CreateRecognizer(),
-                                new LuisAdaptiveRecognizer()
-                                {
-                                    Id="LuisAppId",
-                                    ApplicationId = configuration["LuisAppId"],
-                                    EndpointKey =  configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + configuration["LuisAPIHostName"]
-                                }
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = configuration["LuisAppId"],
+                                //    EndpointKey =  configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                                //}
                         }
                 },
                 Triggers = new List<OnCondition>()
@@ -91,7 +91,7 @@ namespace Evie.Chatbot.Dialogs
                                     new PropertyAssignment()
                                     {
                                         Property = "user.profile.mobile",
-                                        Value = "=coalesce(dialog.mobile, @number)"
+                                        Value = "=@mobile"
                                     }
                                 }
                             },
@@ -112,6 +112,8 @@ namespace Evie.Chatbot.Dialogs
                                 // Because we have a local recognizer, we can use it to extract entities.
                                 // This enables users to say things like 'my name is vishwac' and we only take 'vishwac' as the name.
                                 Value = "=@personName",
+
+                                OutputFormat = "${join(foreach(split(this.value, ' '), item, concat(toUpper(substring(item, 0, 1)), substring(item, 1))), ' ')}",
 
                                 // We are going to allow any interruption for a high confidence interruption intent classification .or.
                                 // when we do not get a value for the personName entity.
@@ -137,90 +139,24 @@ namespace Evie.Chatbot.Dialogs
                                 // Allow interruption if we do not get either an age or a number.
                                 AllowInterruptions = "!@age && !@number"
                             },
-                            //new NumberInput()
-                            //{
-                            //    Property = "user.profile.mobile",
-                            //    Prompt = new StaticActivityTemplate(MessageFactory.Text("${AskUserMobile}")),
-                            //    Validations = new List<BoolExpression>()
-                            //    {
-                            //        //mobile number should more than 5 digits
-                            //        "length(string(this.value)) < 5"
-                            //    },
-                            //    MaxTurnCount = 3,
-                            //    DefaultValue = "04000000000",
-                            //    DefaultValueResponse = new ActivityTemplate("${DefaultUserMobileResponse()}"),
-                            //    UnrecognizedPrompt = new ActivityTemplate("${AskUserMobile}"),
-                            //    InvalidPrompt = new ActivityTemplate("${AskUserMobile}"),
-                            //    Value="coalesce(@mobile.number, @number)",
-                            //    AllowInterruptions = "!@mobile && !@number"
-                            //},
-                            new SendActivity("${ProfileReadBack()}")
-                        }
-                    },
-                    new OnIntent()
-                    {
-                        Intent = "NoValue",
-
-                        // Only do this only on high confidence recognition
-                        Condition = "#NoValue.Score >= 0.9",
-                        Actions = new List<Dialog>()
-                        {
-                            new IfCondition()
+                            new TextInput()
                             {
-                                Condition = "user.profile.name == null",
-                                Actions = new List<Dialog>()
+                                Property = "user.profile.mobile",
+                                Prompt = new ActivityTemplate("${AskUserMobile()}"),
+                                Validations = new List<BoolExpression>()
                                 {
-                                    new SetProperty()
-                                    {
-                                        Property = "user.profile.name",
-                                        Value = "Human"
-                                    },
-                                    new SendActivity("${NoValueForUserNameReadBack()}")
+                                    //mobile number should more than 5 digits
+                                    "length(this.value) > 5"
                                 },
-                                ElseActions = new List<Dialog>()
-                                {
-                                    new SetProperty()
-                                    {
-                                        Property = "user.profile.age",
-                                        Value = "30"
-                                    },
-                                    new SendActivity("${NoValueForUserAgeReadBack()}")
-                                }
-                            }
-                        }
-                    },
-                    new OnIntent()
-                    {
-                        Intent = "GetInput",
-                        Actions = new List<Dialog>()
-                        {
-                            new SetProperties()
-                            {
-                                Assignments = new List<PropertyAssignment>()
-                                {
-                                    new PropertyAssignment()
-                                    {
-                                        Property = "user.profile.name",
-                                        Value = "=@personName"
-                                    },
-                                    new PropertyAssignment()
-                                    {
-                                        Property = "user.profile.age",
-                                        Value = "=coalesce(@age, @number)"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    new OnIntent()
-                    {
-                        Intent = "Restart",
-                        Actions = new List<Dialog>()
-                        {
-                            new DeleteProperty()
-                            {
-                                Property = "user.profile"
-                            }
+                                MaxTurnCount = 3,
+                                DefaultValue = "04000000000",
+                                DefaultValueResponse = new ActivityTemplate("${DefaultUserMobileResponse()}"),
+                                UnrecognizedPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                InvalidPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                Value="=@mobile",
+                                AllowInterruptions = "!@mobile"
+                            },
+                            new SendActivity("${ProfileReadBack()}")
                         }
                     }
                 }
