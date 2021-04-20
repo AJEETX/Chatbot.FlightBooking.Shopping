@@ -38,13 +38,13 @@ namespace Evie.Chatbot.Dialogs
                     Recognizers = new List<Recognizer>()
                         {
                                 new CustomerRegexRecognizer().CreateRecognizer(),
-                                new LuisAdaptiveRecognizer()
-                                {
-                                    Id="LuisAppId",
-                                    ApplicationId = configuration["LuisAppId"],
-                                    EndpointKey =  configuration["LuisAPIKey"],
-                                    Endpoint = "https://" + configuration["LuisAPIHostName"]
-                                }
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = configuration["LuisAppId"],
+                                //    EndpointKey =  configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                                //}
                         }
                 },
                 Triggers = new List<OnCondition>()
@@ -116,6 +116,8 @@ namespace Evie.Chatbot.Dialogs
                                 // This enables users to say things like 'my name is vishwac' and we only take 'vishwac' as the name.
                                 Value = "=@personName",
 
+                                OutputFormat = "${join(foreach(split(this.value, ' '), item, concat(toUpper(substring(item, 0, 1)), substring(item, 1))), ' ')}",
+
                                 // We are going to allow any interruption for a high confidence interruption intent classification .or.
                                 // when we do not get a value for the personName entity.
                                 AllowInterruptions = "turn.recognized.score >= 0.9 || !@personName",
@@ -144,7 +146,17 @@ namespace Evie.Chatbot.Dialogs
                             {
                                 Property = "user.profile.mobile",
                                 Prompt = new ActivityTemplate("${AskUserMobile()}"),
-                                Value = "=@mobile",
+                                Validations = new List<BoolExpression>()
+                                {
+                                    //mobile number should more than 5 digits
+                                    "length(this.value) > 5"
+                                },
+                                MaxTurnCount = 3,
+                                DefaultValue = "04000000000",
+                                DefaultValueResponse = new ActivityTemplate("${DefaultUserMobileResponse()}"),
+                                UnrecognizedPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                InvalidPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                Value="=@mobile",
                                 AllowInterruptions = "!@mobile"
                             },
                             new SendActivity("${ProfileReadBack()}")

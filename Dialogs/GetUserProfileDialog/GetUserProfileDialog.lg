@@ -3,7 +3,7 @@
 
 # AskFirstName
 [Activity
-    Text = What is your first name?
+    Text = What is your full name?
     SuggestedActions = Help | Cancel
 ]
 
@@ -31,10 +31,10 @@
 - Hiya
 
 # ProfileReadBackAgain
-- ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**.
+- ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**
 
 # ProfileReadBack
-- ${AckPhrase()} **${user.profile.name}**, I have your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**.
+- ${AckPhrase()} **${user.profile.name}**, I have your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**
 
 # GetProfileHelp
 - Local help for get profile. Just for demo.
