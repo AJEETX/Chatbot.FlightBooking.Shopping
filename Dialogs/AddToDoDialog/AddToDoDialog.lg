@@ -16,7 +16,7 @@
 - IF : ${dialog.listType != null}
     - Ok, what would you like to buy from the category **${dialog.listType}**?
 - ELSE :
-    - Ok, Do you know the product name you like to buy? Or you can select the favorites from below.
+    - Ok, Please type the product name you like to buy? Or you can select the favorites from below.
 
 # GetSampleProducts
 [Activity
@@ -47,7 +47,7 @@
         - ${GetSampleProducts()}
 
 # TimberProducts
--  Timber | Hard wood | Pinewood | Oakwood
+-  Soft wood | Hard wood | Pinewood | Oakwood
 
 # PaintProducts
 -  Indoor paint | Outdoor paint | acrilic paint
@@ -60,7 +60,7 @@
 # GetTimberProducts
 [Activity
     Text = ${AskForItemTitle()}
-    SuggestedActions = Timber | Hard wood | Pinewood | Oakwood | ViewCart | Help | Cancel
+    SuggestedActions = Soft wood | Hard wood | Pinewood | Oakwood | ViewCart | Help | Cancel
 ]
 
 # GetPaintProducts
@@ -84,13 +84,13 @@
 # GetListType
 [Activity
     Text = Please select **category**? or You can select from the choice(s) below
-    SuggestedActions = Timber | Paint | Tiles 
+    SuggestedActions = Timber | Paint | Tiles | ViewCart | Help | Cancel
 ]
 
 # GetListType.Invalid
 [Activity
     Text = Sorry, '${this.value}' does not work. Which category would you add ${dialog.itemTitle} to?
-    SuggestedActions = Timber | Paint | Tiles
+    SuggestedActions = Timber | Paint | Tiles | ViewCart | Help | Cancel
 ]
 
 # AddItemReadBack

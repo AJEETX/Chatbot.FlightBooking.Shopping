@@ -4,7 +4,7 @@
 # AskFirstName
 [Activity
     Text = What is your full name?
-    SuggestedActions = Help | Cancel
+    SuggestedActions = ViewCart | Help | Cancel
 ]
 
 # AskFirstName.Invalid()
@@ -13,7 +13,7 @@
 # AskUserAge
 [Activity
     Text = ${AckPhrase()} **${user.profile.name}**, ${GetAge()}
-    SuggestedActions =  Help | Cancel
+    SuggestedActions =  ViewCart | Help | Cancel
 ]
 
 # AskUserAge.Invalid
@@ -26,9 +26,11 @@
 - What is your age?
 
 # AckPhrase
-- Hello
 - Hi
+- Hello
 - Hiya
+- Hi there
+- Hey there
 
 # ProfileReadBackAgain
 - ${AckPhrase()} **${user.profile.name}**, I remember your age as **${user.profile.age}**, mobile number: **${user.profile.mobile}**

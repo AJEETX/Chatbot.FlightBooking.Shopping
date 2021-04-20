@@ -68,7 +68,7 @@ namespace Evie.Chatbot.Dialogs
                                         OutputFormat = "=toLower(this.value)",
                                         InvalidPrompt = new ActivityTemplate("${GetListType.Invalid()}"),
                                         MaxTurnCount = 2,
-                                        DefaultValue = "timber",
+                                        DefaultValue = "Soft wood",
                                         DefaultValueResponse = new ActivityTemplate("${GetListType.DefaultValueResponse()}")
                                     },
                                     new SendActivity("${ShowList()}")

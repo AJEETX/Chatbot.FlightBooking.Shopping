@@ -62,7 +62,7 @@ namespace Evie.Chatbot.Dialogs
                         {
                             Actions = new List<Dialog>()
                             {
-                                new SendActivity("${HelpRootDialog()}")
+                                new SendActivity("${IntroMessage()}")
                                 }
                         },
                         new OnIntent("BuyProduct")
@@ -199,6 +199,13 @@ namespace Evie.Chatbot.Dialogs
                                         new SendActivity("${SigninCard()}")
                                     }
                                 }
+                            }
+                        },
+                        new OnUnknownIntent()
+                        {
+                            Actions = new List<Dialog>()
+                            {
+                                new SendActivity("${HelpRootDialog()}")
                             }
                         }
                     }
