@@ -31,7 +31,7 @@ namespace Evie.Chatbot.Recognizers
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)book a flight"),
                     new IntentPattern("BookFlight","(?i)flight booking"),
-                    new IntentPattern("BookFlight","(?i)catch  a flight"),
+                    new IntentPattern("BookFlight","(?i)catch a flight"),
                     new IntentPattern("BookFlight","(?i)fly to"),
                     new IntentPattern("BookFlight","(?i)fly from"),
                     new IntentPattern("BookFlight","(?i)flight to"),

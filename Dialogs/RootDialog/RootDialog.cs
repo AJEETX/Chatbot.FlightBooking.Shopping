@@ -32,7 +32,7 @@ namespace Evie.Chatbot.Dialogs
                     Id = nameof(LuisAdaptiveRecognizer),
                     ApplicationId = configuration["LuisAppId"],
                     EndpointKey = configuration["LuisAPIKey"],
-                    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                    Endpoint = configuration["LuisAPIHostName"]
                 };
 
                 // Create instance of adaptive dialog.
@@ -42,12 +42,12 @@ namespace Evie.Chatbot.Dialogs
                     Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                     // Create a LUIS recognizer.
                     // The recognizer is built using the intents, utterances, patterns and entities defined in ./RootDialog.lu file
-                    Recognizer = new CrossTrainedRecognizerSet()
+                    Recognizer = new RecognizerSet()
                     {
                         Recognizers = new List<Recognizer>()
                         {
                                 CustomRegexRecognizer.CreateRootRecognizer(),
-                                //_recognizer
+                                _recognizer
                         }
                     },
                     Triggers = new List<OnCondition>()
