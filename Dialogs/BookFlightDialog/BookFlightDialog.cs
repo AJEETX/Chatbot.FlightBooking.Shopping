@@ -1,9 +1,6 @@
 ﻿using AdaptiveExpressions.Properties;
 using Evie.Chatbot.Recognizers;
-<<<<<<< HEAD
-=======
 using Microsoft.Bot.Builder.AI.Luis;
->>>>>>> Integrated Lui, with regex
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
