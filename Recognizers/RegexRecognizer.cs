@@ -1,4 +1,4 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using System.Collections.Generic;
 
@@ -10,25 +10,28 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateRootRecognizer",
                 Intents = new List<IntentPattern>
                 {
-                    new IntentPattern("Greeting","(?i)hi there"),
+                    new IntentPattern("Greeting","(?i)\bhi there\b"),
                     new IntentPattern("Greeting","(?i)hello"),
                     new IntentPattern("Greeting","(?i)hey"),
                     new IntentPattern("Greeting","(?i)hi there"),
-                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)\bhi\b"),
 
                     new IntentPattern("BuyProduct","(?i)buy"),
                     new IntentPattern("DeleteItem","(?i)remove"),
                     new IntentPattern("DeleteItem","(?i)delete"),
                     new IntentPattern("DeleteItem","(?i)erase"),
                     new IntentPattern("DeleteItem","(?i)DeleteItem"),
+                    new IntentPattern("Cart","(?i)cart"),
                     new IntentPattern("ViewCart","(?i)view"),
+                    new IntentPattern("ViewCart","(?i)viewcart"),
                     new IntentPattern("GetUserProfile","(?i)profile"),
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)book a flight"),
                     new IntentPattern("BookFlight","(?i)flight booking"),
-                    new IntentPattern("BookFlight","(?i)catch  a flight"),
+                    new IntentPattern("BookFlight","(?i)catch a flight"),
                     new IntentPattern("BookFlight","(?i)fly to"),
                     new IntentPattern("BookFlight","(?i)fly from"),
                     new IntentPattern("BookFlight","(?i)flight to"),
@@ -53,6 +56,7 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateAddToDoDialogRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("Cart","(?i)cart"),
@@ -65,6 +69,7 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateBookingRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("BookFlight","(?i)BookFlight"),
@@ -80,13 +85,14 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateDeleteRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)travel"),
                     new IntentPattern("BookFlight","(?i)fly"),
                     new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)\bhi\b"),
                     new IntentPattern("Greeting","(?i)hi there"),
                     new IntentPattern("Greeting","(?i)hello"),
                     new IntentPattern("Greeting","(?i)hey"),
@@ -109,13 +115,14 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateProfileRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)travel"),
                     new IntentPattern("BookFlight","(?i)fly"),
                     new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)\bhi\b"),
                     new IntentPattern("Greeting","(?i)hi there"),
                     new IntentPattern("Greeting","(?i)hello"),
                     new IntentPattern("Greeting","(?i)hey"),
@@ -129,6 +136,9 @@ namespace Evie.Chatbot.Recognizers
                     new IntentPattern("Cancel","(?i)nope"),
                     new IntentPattern("Cancel","(?i)no thanks"),
                     new IntentPattern("BuyProduct","(?i)add"),
+                    new IntentPattern("Cart","(?i)cart"),
+                    new IntentPattern("ViewCart","(?i)view"),
+                    new IntentPattern("ViewCart","(?i)viewcart"),
                     new IntentPattern("GetWeather","(?i)weather")
                 }
             };
@@ -138,13 +148,14 @@ namespace Evie.Chatbot.Recognizers
         {
             return new RegexRecognizer
             {
+                Id = "CreateViewRecognizer",
                 Intents = new List<IntentPattern>
                 {
                     new IntentPattern("BookFlight","(?i)book"),
                     new IntentPattern("BookFlight","(?i)travel"),
                     new IntentPattern("BookFlight","(?i)fly"),
                     new IntentPattern("BookFlight","(?i)flight"),
-                    new IntentPattern("Greeting","(?i)hi"),
+                    new IntentPattern("Greeting","(?i)\bhi\b"),
                     new IntentPattern("Greeting","(?i)hi there"),
                     new IntentPattern("Greeting","(?i)hello"),
                     new IntentPattern("Greeting","(?i)hey"),

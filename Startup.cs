@@ -1,5 +1,6 @@
 ﻿using Evie.Chatbot.Bots;
 using Evie.Chatbot.Dialogs;
+using Evie.Chatbot.Recognizers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
@@ -38,6 +39,8 @@ namespace Evie.Chatbot
 
             services.AddSingleton<ConversationState>();             // Create the Conversation state. (Used by the Dialog system itself.)
 
+            // Register LUIS recognizer
+            services.AddSingleton<BookingRecognizer>();
             services.AddSingleton<RootDialog>();                    // The Dialog that will be run by the bot.
 
             services.AddSingleton<IBot, DialogBot<RootDialog>>();           // Create the bot. the ASP Controller is expecting an IBot.

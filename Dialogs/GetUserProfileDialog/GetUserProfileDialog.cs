@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using AdaptiveExpressions.Properties;
+﻿using AdaptiveExpressions.Properties;
 using Evie.Chatbot.Recognizers;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
@@ -12,6 +10,8 @@ using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
 using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
 using Microsoft.Bot.Builder.LanguageGeneration;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Evie.Chatbot.Dialogs
 {
@@ -28,31 +28,39 @@ namespace Evie.Chatbot.Dialogs
             // Create instance of adaptive dialog.
             var userProfileDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
-                Recognizer = CustomRegexRecognizer.CreateProfileRecognizer(),
                 Generator = new TemplateEngineLanguageGenerator(_templates),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                CustomRegexRecognizer.CreateProfileRecognizer(),
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = configuration["LuisAppId"],
+                                //    EndpointKey =  configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + configuration["LuisAPIHostName"]
+                                //}
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
-                    // Actions to execute when this dialog begins. This dialog will attempt to fill user profile.
-                    // Each adaptive dialog can have its own recognizer. The LU definition for this dialog is under GetUserProfileDialog.lu
-                    // This dialog supports local intents. When you say things like 'why do you need my name' or 'I will not give you my name'
-                    // it uses its own recognizer to handle those.
-                    // It also demonstrates the consultation capability of adaptive dialog. When the local recognizer does not come back with
-                    // a high-confidence recognition, this dialog will defer to the parent dialog to see if it wants to handle the user input.
                     new OnBeginDialog()
                     {
                         Actions = new List<Dialog>()
                         {
-                             new IfCondition()
+                            new IfCondition()
                             {
                                 // All conditions are expressed using adaptive expressions.
                                 // See https://aka.ms/adaptive-expressions to learn more
-                                Condition = "user.profile.name != null",
+                                Condition = "user.profile.name != null || user.profile.age != null || user.profile.mobile != null",
                                 Actions = new List<Dialog>()
                                 {
                                     // show profile.
                                     new SendActivity("${ProfileReadBackAgain()}"),
+                                    new BeginDialog(nameof(ViewToDoDialog)),
                                     new EndDialog()
-                                }
+                                },
                             },
                             new SetProperties()
                             {
@@ -99,6 +107,8 @@ namespace Evie.Chatbot.Dialogs
                                 // This enables users to say things like 'my name is vishwac' and we only take 'vishwac' as the name.
                                 Value = "=@personName",
 
+                                OutputFormat = "${join(foreach(split(this.value, ' '), item, concat(toUpper(substring(item, 0, 1)), substring(item, 1))), ' ')}",
+
                                 // We are going to allow any interruption for a high confidence interruption intent classification .or.
                                 // when we do not get a value for the personName entity.
                                 AllowInterruptions = "turn.recognized.score >= 0.9 || !@personName",
@@ -127,7 +137,17 @@ namespace Evie.Chatbot.Dialogs
                             {
                                 Property = "user.profile.mobile",
                                 Prompt = new ActivityTemplate("${AskUserMobile()}"),
-                                Value = "=@mobile",
+                                Validations = new List<BoolExpression>()
+                                {
+                                    //mobile number should more than 5 digits
+                                    "length(this.value) > 5"
+                                },
+                                MaxTurnCount = 3,
+                                DefaultValue = "04000000000",
+                                DefaultValueResponse = new ActivityTemplate("${DefaultUserMobileResponse()}"),
+                                UnrecognizedPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                InvalidPrompt = new ActivityTemplate("${AskUserMobile()}"),
+                                Value="=@mobile",
                                 AllowInterruptions = "!@mobile"
                             },
                             new SendActivity("${ProfileReadBack()}")
@@ -136,10 +156,8 @@ namespace Evie.Chatbot.Dialogs
                 }
             };
 
-            // Add named dialogs to the DialogSet. These names are saved in the dialog state.
             AddDialog(userProfileDialog);
 
-            // The initial child Dialog to run.
             InitialDialogId = nameof(AdaptiveDialog);
         }
     }

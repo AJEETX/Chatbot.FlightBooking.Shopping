@@ -1,33 +1,51 @@
-﻿using System;
+﻿using AdaptiveExpressions.Properties;
+using Evie.Chatbot.Recognizers;
+using Microsoft.Bot.Builder.AI.Luis;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Adaptive;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Recognizers;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
+using Microsoft.Bot.Builder.Dialogs.Choices;
+using Microsoft.Bot.Builder.LanguageGeneration;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Adaptive;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Input;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Conditions;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Templates;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Generators;
-using Microsoft.Bot.Builder.LanguageGeneration;
-using Microsoft.Extensions.Configuration;
-using AdaptiveExpressions.Properties;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Evie.Chatbot.Recognizers;
 
 namespace Evie.Chatbot.Dialogs
 {
     public class DeleteToDoDialog : ComponentDialog
     {
+        private static IConfiguration Configuration;
+
         public DeleteToDoDialog(IConfiguration configuration) : base(nameof(DeleteToDoDialog))
         {
+            Configuration = configuration;
             string[] paths = { ".", "Dialogs", "DeleteToDoDialog", "DeleteToDoDialog.lg" };
             string fullPath = Path.Combine(paths);
             // Create instance of adaptive dialog.
             var DeleteToDoDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = CustomRegexRecognizer.CreateDeleteRecognizer(),
+                Recognizer = new CrossTrainedRecognizerSet()
+                {
+                    Recognizers = new List<Recognizer>()
+                        {
+                                CustomRegexRecognizer.CreateDeleteRecognizer(),
+                                //new LuisAdaptiveRecognizer()
+                                //{
+                                //    Id="LuisAppId",
+                                //    ApplicationId = Configuration["LuisAppId"],
+                                //    EndpointKey =  Configuration["LuisAPIKey"],
+                                //    Endpoint = "https://" + Configuration["LuisAPIHostName"]
+                                //}
+                        }
+                },
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()

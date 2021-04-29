@@ -13,16 +13,19 @@
 # WelcomeSuffix
 - How can I be of help today?
 - What can I do for you today?
+- Please type the keyword(s) to search today?
  
 # WelcomePrefix
 - Hi
 - Hello
 - Hiya
+- Hi there
+- Hey there
 
 > Structured template with composition
 # IntroMessage
 [Activity
-    Text = Hi, nice to meet you! I'm **evie**. Here are some things I can help with
+    Text = Hi there, nice to meet you! I'm **evie**. Here are some things I can help with
     ${WelcomeActions()}
 ]
 
@@ -66,7 +69,7 @@
 # SigninCard
 [SigninCard
     text = Restart again
-    buttons = hi
+    buttons = click me
 ]
 
 # AdaptiveCard

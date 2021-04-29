@@ -25,7 +25,7 @@
     - CASE: ${'all'}
         - ${AllListReadBack()}
     - DEFAULT:
-        - I do not understand that list type.
+        - ${AllListReadBack()}
 
 # AllListReadBack
 - ```
