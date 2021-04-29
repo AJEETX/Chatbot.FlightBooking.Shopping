@@ -34,8 +34,8 @@
     },
     {
       "type": "Action.Submit",
-      "title": "What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin",
-      "url": "Book a flight from Paris to Berlin"
+      "title": "What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin next Monday",
+      "data": "Book a flight from Paris to Berlin next Monday"
     }
   ]
 }
