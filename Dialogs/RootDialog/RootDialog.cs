@@ -27,14 +27,6 @@ namespace Evie.Chatbot.Dialogs
             var luisIsConfigured = !string.IsNullOrEmpty(configuration["LuisAppId"]) && !string.IsNullOrEmpty(configuration["LuisAPIKey"]) && !string.IsNullOrEmpty(configuration["LuisAPIHostName"]);
             if (luisIsConfigured)
             {
-                var _recognizer = new LuisAdaptiveRecognizer()
-                {
-                    Id = nameof(LuisAdaptiveRecognizer),
-                    ApplicationId = configuration["LuisAppId"],
-                    EndpointKey = configuration["LuisAPIKey"],
-                    Endpoint = configuration["LuisAPIHostName"]
-                };
-
                 // Create instance of adaptive dialog.
                 var rootDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
                 {
@@ -42,14 +34,7 @@ namespace Evie.Chatbot.Dialogs
                     Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
                     // Create a LUIS recognizer.
                     // The recognizer is built using the intents, utterances, patterns and entities defined in ./RootDialog.lu file
-                    Recognizer = new RecognizerSet()
-                    {
-                        Recognizers = new List<Recognizer>()
-                        {
-                                CustomRegexRecognizer.CreateRootRecognizer(),
-                                _recognizer
-                        }
-                    },
+                    Recognizer = AllRecognizers.CreateCrossTrainedRecognizer(configuration),
                     Triggers = new List<OnCondition>()
                     {
                         // Add a rule to welcome user
@@ -224,7 +209,6 @@ namespace Evie.Chatbot.Dialogs
                 InitialDialogId = nameof(AdaptiveDialog);
             }
         }
-
         private static List<Dialog> WelcomeUserSteps()
         {
             return new List<Dialog>()
