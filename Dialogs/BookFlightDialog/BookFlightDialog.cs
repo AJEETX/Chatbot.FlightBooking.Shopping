@@ -30,32 +30,17 @@ namespace Evie.Chatbot.Dialogs
             var bookFlightDialog = new AdaptiveDialog(nameof(AdaptiveDialog))
             {
                 Generator = new TemplateEngineLanguageGenerator(Templates.ParseFile(fullPath)),
-                Recognizer = new CrossTrainedRecognizerSet()
-                {
-                    Recognizers = new List<Recognizer>()
-                        {
-                                CustomRegexRecognizer.CreateBookingRecognizer(),
-                                //new LuisAdaptiveRecognizer()
-                                //{
-                                //    Id="LuisAppId",
-                                //    ApplicationId = Configuration["LuisAppId"],
-                                //    EndpointKey =  Configuration["LuisAPIKey"],
-                                //    Endpoint = "https://" + Configuration["LuisAPIHostName"]
-                                //}
-                        }
-                },
-                // Create and use a LUIS recognizer on the child
-                // Each child adaptive dialog can have its own recognizer.
                 Triggers = new List<OnCondition>()
                 {
                     new OnBeginDialog()
                     {
                         Actions = new List<Dialog>()
                         {
-                            //welcome message to the booking
-                            new SendActivity("${BookingWelcome()}"),
+                           // //welcome message to the booking
+                           // new SendActivity("${BookingWelcome()}"),
+                           // // Save any entities returned by LUIS.
+                           //new BeginDialog(nameof(GetUserProfileDialog)),
                             // Save any entities returned by LUIS.
-                           new BeginDialog(nameof(GetUserProfileDialog)),
                             new SetProperties()
                             {
                                 Assignments = new List<PropertyAssignment>()
@@ -70,25 +55,25 @@ namespace Evie.Chatbot.Dialogs
                                     new PropertyAssignment()
                                     {
                                         Property = "conversation.flightBooking.departureCity",
-                                        // Value is an expression. @entityName is shorthand to refer to the value of an entity recognized.
+                                        // Value is an expresson. @entityName is shorthand to refer to the value of an entity recognized.
                                         // @xxx is same as turn.recognized.entities.xxx
-                                        Value = "=@fromCity.location"
+                                        Value = "=@BookingOrder.Origin[0]"
                                     },
                                     new PropertyAssignment()
                                     {
                                         Property = "conversation.flightBooking.destinationCity",
-                                        Value = "=@toCity.location"
+                                        Value = "=turn.recognized.entities.BookingOrder[1].Destination[0]"
                                     },
                                     new PropertyAssignment()
                                     {
                                         Property = "conversation.flightBooking.departureDate",
-                                        Value = "=@datetime.timex[0]"
+                                         Value = "=@datetime.timex[0]"
                                     }
                                 }
                             },
                             // Steps to book flight
                             // Help and Cancel intents are always available since TextInput will always initiate
-                            // Consultation up the parent dialog chain to see if anyone else wants to take the user input.
+                            // Consulatation up the parent dialog chain to see if anyone else wants to take the user input.
                             new TextInput()
                             {
                                 Property = "conversation.flightBooking.departureCity",
@@ -97,14 +82,14 @@ namespace Evie.Chatbot.Dialogs
                                 // https://aka.ms/language-generation
                                 Prompt = new ActivityTemplate("${PromptForMissingInformation()}"),
                                 // We will allow interruptions as long as the user did not explicitly answer the question
-                                // This property supports an expression so you can examine presence of an intent via #intentName,
+                                // This property supports an expression so you can examine presence of an intent via #intentName, 
                                 //    detect presence of an entity via @entityName etc. Interruption is allowed if the expression
                                 //    evaluates to `true`. This property defaults to `true`.
-                                AllowInterruptions = "!@fromCity || !@geographyV2",
-                                // Value is an expression. Take first non null value.
-                                Value = "=coalesce(@fromCity.location, @geographyV2.location)"
+                                AllowInterruptions = "!@BookingOrder.Origin[0]",
+                                // Value is an expression. Take first non null value. 
+                                Value = "=@BookingOrder.Origin[0]"
                             },
-                            // delete entity so it is not over consumed as destination as well
+                            // delete entity so it is not overconsumed as destination as well
                             new DeleteProperty()
                             {
                                 Property = "turn.recognized.entities.geographyV2"
@@ -113,9 +98,9 @@ namespace Evie.Chatbot.Dialogs
                             {
                                 Property = "conversation.flightBooking.destinationCity",
                                 Prompt = new ActivityTemplate("${PromptForMissingInformation()}"),
-                                AllowInterruptions = "!@toCity || !@geographyV2 || @toCity == @fromCity",
+                                AllowInterruptions = "!turn.recognized.entities.BookingOrder[1].Destination[0]",
                                 // Value is an expression. Take any recognized city name as fromCity
-                                Value = "=coalesce(@toCity.location, @geographyV2.location)"
+                                Value = "=turn.recognized.entities.BookingOrder[1].Destination[0]"
                             },
                             new DateTimeInput()
                             {
@@ -127,7 +112,7 @@ namespace Evie.Chatbot.Dialogs
                                     // Prebuilt function that returns boolean true if we have a full, valid date.
                                     "isDefinite(this.value[0].timex)"
                                 },
-                                InvalidPrompt = new ActivityTemplate("${InvalidDateReprompt()}"),
+                                InvalidPrompt = new ActivityTemplate("${Date.Invalid()}"),
                                 // Value is an expression. Take any date time entity recognition as deparature date.
                                 Value = "=@datetime.timex[0]"
                             },
@@ -136,7 +121,7 @@ namespace Evie.Chatbot.Dialogs
                                 Property = "turn.bookingConfirmation",
                                 Prompt = new ActivityTemplate("${ConfirmBooking()}"),
                                 // You can use this flag to control when a specific input participates in consultation bubbling and can be interrupted.
-                                // 'false' means interruption is not allowed when this input is active.
+                                // 'false' means intteruption is not allowed when this input is active.
                                 AllowInterruptions = "false"
                             },
                             new IfCondition()
@@ -146,7 +131,7 @@ namespace Evie.Chatbot.Dialogs
                                 Condition = "turn.bookingConfirmation == true",
                                 Actions = new List<Dialog>()
                                 {
-                                    // TODO: book flight.
+                                    new BeginDialog(nameof(GetUserProfileDialog)),
                                     new SendActivity("${BookingConfirmation()}"),
                                     new SendActivity("${BookingReceiptCard()}"),
                                     new SendActivity("${BotOverviewRestart()}")
